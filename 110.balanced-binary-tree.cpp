@@ -77,9 +77,21 @@ using namespace std;
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+// struct TreeNode
+// {
+//     int val;
+//     TreeNode *left;
+//     TreeNode *right;
+//     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+//     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+// };
+
 class Solution
 {
 public:
+    // 递归解法
     int getHeight(TreeNode *root)
     {
         if (root == nullptr)
@@ -95,7 +107,34 @@ public:
     }
     bool isBalanced(TreeNode *root)
     {
-        return getHeight(root) != -1;
+        // return getHeight(root) != -1;
+        if (root == nullptr)
+            return true;
+        stack<TreeNode *> stk;
+        unordered_map<TreeNode *, int> nodeHeight; // 存储每个节点的高度
+        stk.push(root);
+        while (!stk.empty())
+        {
+            TreeNode *curr = stk.top();
+            if ((curr->left == nullptr || nodeHeight.count(curr->left)) &&
+                (curr->right == nullptr || nodeHeight.count(curr->right)))
+            {
+                stk.pop();
+                int leftH = curr->left ? nodeHeight[curr->left] : 0;
+                int rightH = curr->right ? nodeHeight[curr->right] : 0;
+                if (abs(leftH - rightH) > 1)
+                    return false;
+                nodeHeight[curr] = max(leftH, rightH) + 1;
+            }else{
+                if(curr->right)
+                    stk.push(curr->right);
+                if(curr->left)
+                    stk.push(curr->left);
+            }
+
+
+        }
+        return true;
     }
 };
 // @lc code=end
