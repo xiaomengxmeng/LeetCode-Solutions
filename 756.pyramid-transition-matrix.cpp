@@ -111,15 +111,26 @@ public:
         // 1. 字符映射：A-F -> 0-5
         auto charToInt = [](char c) { return c - 'A'; };
         
-        // 2. 规则存储：使用三维数组 rules[left][right] = mask
+        // 2. 规则存储：使用二维数组 rules[left][right] = mask
         //    其中mask的第k位为1表示left和right可以组成k对应的字符
         vector<vector<int>> rules(6, vector<int>(6, 0));
+        
+        // 存储规则的过程：
+        // - 遍历所有allowed规则
+        // - 将每个规则的left和right转换为数字索引
+        // - 将对应的top字符在mask中设置为1
+        // - 对于前缀相同的规则（相同的left和right），通过|=操作合并所有可能的top字符
         for (const string& a : allowed) {
             int left = charToInt(a[0]);
             int right = charToInt(a[1]);
             int top = charToInt(a[2]);
-            rules[left][right] |= (1 << top);
+            rules[left][right] |= (1 << top);  // 合并相同前缀的规则
         }
+        
+        // 示例：假设allowed = ["BCC", "BCA", "BCD"]
+        // 则rules[1][2]（B和C对应的索引）会被设置为：
+        // - 0b100 (C) | 0b001 (A) | 0b1000 (D) = 0b1101
+        // 表示B和C可以组成A、C、D
         
         // 3. 将bottom转换为数字数组，便于后续处理
         vector<int> bottomNums;
