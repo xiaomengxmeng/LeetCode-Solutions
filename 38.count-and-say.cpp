@@ -44,13 +44,14 @@ public:
     string countAndSay(int n) {
         if(n==1)
             return "1";
+        // 递归计算countAndSay(n-1);
         string s = countAndSay(n - 1);
         string res = "";
         for (int i = 0; i < s.size();i++){
             int j = i;
             while(j<s.size()&&s[j]==s[i])
-                j++;
-            res += to_string(j - i) + s[i];
+                j++; // 统计连续相同字符的数量
+            res += to_string(j - i) + s[i]; // 拼接数量和字符
             i = j - 1;
         }
         return res;
