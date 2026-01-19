@@ -31,16 +31,22 @@ public:
         if(num1=="0"||num2=="0") return "0";
         int m = num1.size(), n = num2.size();
         vector<int> res(m + n, 0);
-        for (int i = m - 1; i >= 0;i--)
-        {
-            for (int j = n - 1; j >= 0;j--)
-            {
-                int mul=(num1[i]-'0')*(num2[j]-'0');
-                res[i+j+1]+=mul;
-                res[i+j]+=res[i+j+1]/10;
-                res[i+j+1]%=10;
+       // 阶段 1：累加所有乘积
+        for (int i = m - 1; i >= 0; i--) {
+            for (int j = n - 1; j >= 0; j--) {
+                int mul = (num1[i] - '0') * (num2[j] - '0');
+                res[i + j + 1] += mul;
             }
         }
+        
+        // 阶段 2：统一处理进位（从右到左）
+        int carry = 0;
+        for (int i = m + n - 1; i >= 0; i--) {
+            int temp = res[i] + carry;
+            res[i] = temp % 10;
+            carry = temp / 10;
+        }
+        
         string ans="";
         for(int i=0;i<res.size();i++)
         {
