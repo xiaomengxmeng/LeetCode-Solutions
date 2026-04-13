@@ -1,12 +1,29 @@
-## 2026-04-13 | [Easy] Two Sum (1)
+## 2026-04-13 | \[Easy] Two Sum (1)
 
 ### 🎯 我的思路
+
 - 两层循环直接遍历数组，找到两个数的和等于目标值的索引。
-- 最坏需要比较N*N-1次 ，总共O(n^2) 时间复杂度
+- 最坏需要比较N\*N-1次 ，总共O(n^2) 时间复杂度
 - 第i个元素会和所有元素比较1次
 - 前面的元素比较过无用功
 - 使用hash表优化查找速度
 
-# [2840] Check if Strings Can Be Made Equal With Operations II
+# \[2840] Check if Strings Can Be Made Equal With Operations II
+
 - 判断两个字符串的奇数子串和偶数子串 的字符组成是否相同
 - 分解成两个子问题，然后使用同一方法判断字符组成
+
+# \[49] Group Anagrams
+
+- Hash Table key 为排序后的字符串 values 为字母异位词列表
+- 遍历字符串数组，将每个字符串排序后作为key，将字符串添加到对应的values中
+- 最后返回values列表
+
+1. 单词的字母组成相同，但是顺序不同
+2. 使用哈希表来实现分组
+3. 遍历字符串数组，将每个字符串排序后作为key，将字符串添加到对应的values中
+4. 最后返回values列表
+5. 时间复杂度O(nlogn) 空间复杂度O(n)
+
+
+

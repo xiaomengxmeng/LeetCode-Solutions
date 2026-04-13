@@ -34,21 +34,35 @@ public:
     哈希 key 为排序后的字符串 values 为字母异位词列表
 
     */
-    vector<vector<string>> groupAnagrams(vector<string>& strs) {
-        unordered_map<string, vector<string>> map;
-        for(string str:strs)
-        {
-            string key = str;
-            sort(key.begin(),key.end());
-            map[key].push_back(str);
-        }
-        vector<vector<string>> res;
-        for(auto it=map.begin();it!=map.end();it++)
-        {
-            res.push_back(it->second);
-        }
-        return res;
-    }
+   vector<vector<string>> groupAnagrams(vector<string>& strs) {
+       unordered_map<string, vector<string>> map;
+       for(string str:strs)
+       {
+           string key = str;
+           sort(key.begin(), key.end());
+           map[key].push_back(str);
+       }
+       vector<vector<string>> res;
+       for (auto it = map.begin(); it != map.end();it++){
+           res.push_back(it->second);
+       }
+       return res;
+   }
+    // vector<vector<string>> groupAnagrams(vector<string>& strs) {
+    //     unordered_map<string, vector<string>> map;
+    //     for(string str:strs)
+    //     {
+    //         string key = str;
+    //         sort(key.begin(),key.end());
+    //         map[key].push_back(str);
+    //     }
+    //     vector<vector<string>> res;
+    //     for(auto it=map.begin();it!=map.end();it++)
+    //     {
+    //         res.push_back(it->second);
+    //     }
+    //     return res;
+    // }
 };
 // @lc code=end
 

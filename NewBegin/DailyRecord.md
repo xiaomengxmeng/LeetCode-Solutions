@@ -75,3 +75,40 @@ return evenS1 == evenS2 && oddS1 == oddS2;
 - [242] Valid Anagram - 字符频率统计
 - [387] First Unique Character in a String - 字符频率统计
 - [1278] Palindrome Partitioning III - 字符串分割问题
+
+## 2026-04-13 | [Medium] Group Anagrams (49)
+
+### 🎯 核心思路
+使用哈希表进行分组，键为排序后的字符串（字母异位词排序后相同），值为字母异位词列表。遍历字符串数组，将每个字符串排序后作为键，将原字符串添加到对应的列表中。时间复杂度 O(n * k log k)，其中k为字符串平均长度。
+
+### 🔑 关键代码片段
+```cpp
+unordered_map<string, vector<string>> map;
+for (const string& str : strs) {
+    string key = str;
+    sort(key.begin(), key.end());
+    map[key].push_back(str);
+}
+vector<vector<string>> res;
+for (const auto& pair : map) {
+    res.push_back(pair.second);
+}
+return res;
+```
+
+### 📚 学到的知识点
+- 哈希表的高级应用：用于分组和归类
+- 键设计的艺术：如何选择合适的键来表示一组具有相同特征的元素
+- 字母异位词判断方法：排序后相同或字符频率相同
+- 问题分解能力：将复杂问题分解为特征提取和分组两个步骤
+
+### ⚠️ 易错点 & 反思
+- ❌ 键设计不当可能导致不同的字符串被视为相同
+- ❌ 忘记处理空字符串的情况
+- 💡 排序方法简单直观，频率统计方法更高效（O(n*k) vs O(n*k log k)）
+- 💡 "分组"模式：将具有相同特征的元素分组，哈希表键为特征，值为元素列表
+
+### 🔗 关联题目
+- [242] Valid Anagram - 基础的字母异位词判断
+- [438] Find All Anagrams in a String - 滑动窗口 + 字符频率
+- [567] Permutation in String - 滑动窗口 + 字符频率
