@@ -6,3 +6,7 @@
 - 第i个元素会和所有元素比较1次
 - 前面的元素比较过无用功
 - 使用hash表优化查找速度
+
+# [2840] Check if Strings Can Be Made Equal With Operations II
+- 判断两个字符串的奇数子串和偶数子串 的字符组成是否相同
+- 分解成两个子问题，然后使用同一方法判断字符组成
