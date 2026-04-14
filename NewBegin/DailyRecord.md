@@ -69,7 +69,7 @@ return evenS1 == evenS2 && oddS1 == oddS2;
 - ❌ 忘记索引从0开始，导致奇偶位置判断错误
 - ❌ 只比较整体字符组成，没有分开奇偶位置
 - 💡 对于字符组成比较，排序法和频率统计法各有优劣
-- 💡 频率统计法在n较大时更高效（O(n) vs O(n log n)）
+- 💡 频率统计法在n较大时更高效（O(n) vs O(n log n))
 
 ### 🔗 关联题目
 - [242] Valid Anagram - 字符频率统计
@@ -112,3 +112,47 @@ return res;
 - [242] Valid Anagram - 基础的字母异位词判断
 - [438] Find All Anagrams in a String - 滑动窗口 + 字符频率
 - [567] Permutation in String - 滑动窗口 + 字符频率
+
+## 2026-04-14 | [Easy] Valid Parentheses (20)
+
+### 🎯 核心思路
+使用栈数据结构进行括号匹配。左括号入栈保存，遇到右括号时检查栈顶是否匹配，匹配则出栈。最后判断栈是否为空来确定所有括号是否正确配对。时间复杂度 O(n)，空间复杂度 O(n)。
+
+### 🔑 关键代码片段
+```cpp
+bool isValid(string s) {
+    stack<char> st;
+    for (char c : s) {
+        if (c == '(' || c == '[' || c == '{') {
+            st.push(c);
+        } else {
+            if (st.empty()) return false;      // 栈空说明没有匹配的左括号
+            if ((c == ')' && st.top() != '(') ||
+                (c == ']' && st.top() != '[') ||
+                (c == '}' && st.top() != '{'))
+                return false;                  // 不匹配
+            st.pop();
+        }
+    }
+    return st.empty();                         // 最后栈必须为空
+}
+```
+
+### 📚 学到的知识点
+- **栈的特性**：LIFO（后进先出），完美匹配嵌套结构
+- **括号匹配本质**：左括号期待被匹配（入栈），右括号寻找对应左括号（出栈）
+- **栈操作原则**：访问 `top()` 前必须确保栈不为空
+- **边界情况处理**：只有右括号、不匹配、未完全匹配等场景
+
+### ⚠️ 易错点 & 反思
+- ❌ 栈为空时调用 `stack.top()` 会导致未定义行为
+- ❌ 空检查位置错误：应该在处理右括号时检查，而非每次循环都检查
+- ❌ 忽略了输入只有右括号的特殊情况
+- 💡 **关键教训**：必须先检查容器状态，再执行操作
+- 💡 **优化思路**：从能运行 → 逻辑正确 → 结构清晰 → 代码优雅
+
+### 🔗 关联题目
+- [32] Longest Valid Parentheses - 最长有效括号（Hard，进阶挑战）
+- [22] Generate Parentheses - 生成括号组合（回溯法）
+- [739] Daily Temperatures - 单调栈应用
+- [84] Largest Rectangle in Histogram - 栈的经典应用
