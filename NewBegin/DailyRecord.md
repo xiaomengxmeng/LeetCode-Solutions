@@ -156,3 +156,56 @@ bool isValid(string s) {
 - [22] Generate Parentheses - 生成括号组合（回溯法）
 - [739] Daily Temperatures - 单调栈应用
 - [84] Largest Rectangle in Histogram - 栈的经典应用
+
+## 2026-04-14 | [Easy] Min Stack (155)
+
+### 🎯 核心思路
+使用辅助栈来跟踪最小值。主栈存储所有元素正常操作，辅助栈存储当前的最小值历史。当新元素小于等于辅助栈顶时同时入辅助栈，弹出时如果主栈弹出的值等于辅助栈顶则也弹出。所有操作的时间复杂度都是 O(1)，空间复杂度 O(n)。
+
+### 🔑 关键代码片段
+```cpp
+class MinStack {
+private:
+    stack<int> main_stack;
+    stack<int> min_stack;
+
+public:
+    void push(int val) {
+        main_stack.push(val);
+        if (min_stack.empty() || min_stack.top() >= val) {
+            min_stack.push(val);      // 新的最小值或相等值入辅助栈
+        }
+    }
+
+    void pop() {
+        int top_val = main_stack.top();
+        main_stack.pop();
+        if (top_val == min_stack.top()) {
+            min_stack.pop();
+        }
+    }
+
+    int top() { return main_stack.top(); }
+
+    int getMin() { return min_stack.top(); }  // O(1) 获取最小值
+};
+```
+
+### 📚 学到的知识点
+- **辅助数据结构技术**：用额外空间换取查询效率的提升
+- **C++ 类的设计**：成员变量的作用域和生命周期管理
+- **边界情况处理**：重复最小值的处理（使用 >= 而不是 >）
+- **"空间换时间"思想**：O(n) 空间换取 O(1) 的 getMin() 操作
+
+### ⚠️ 易错点 & 反思
+- ❌ 成员变量定义在构造函数内部会导致作用域错误（应该是局部变量）
+- ❌ `stack.pop()` 不接受参数，且无返回值
+- ❌ pop() 时必须先保存 top 值再弹出，否则无法正确比较
+- 💡 **关键教训**：理解 C++ 类的成员变量与局部变量的区别
+- 💡 **为什么用 >=**：处理重复最小值的情况，确保每次 pop 后辅助栈顶仍是当前最小值
+
+### 🔗 关联题目
+- [232] Implement Queue using Stacks - 用栈实现队列
+- [225] Implement Stack using Queues - 用队列实现栈
+- [716] Max Stack - 类似设计但获取最大值（进阶）
+- [155] Min Stack 变体 - 使用单栈+差值法优化空间
