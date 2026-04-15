@@ -293,3 +293,66 @@ vector<int> plusOne(vector<int>& digits) {
 - [43] Multiply Strings - 大数乘法，进位处理的进阶
 - [415] Add Strings - 大数加法，进位处理的扩展
 - [989] Add to Array-Form of Integer - 类似的数组加法问题
+
+## 2026-04-15 | [Medium] Merge Intervals (56)
+
+### 🎯 核心思路
+先按区间起点排序，然后遍历合并。维护结果数组，每次将当前区间与结果数组最后一个区间比较：若重叠则合并（更新终点为 max），否则添加新区间。时间复杂度 O(n log n)，空间复杂度 O(n)。
+
+### 🔑 关键代码片段
+```cpp
+vector<vector<int>> merge(vector<vector<int>>& intervals) {
+    vector<vector<int>> res;
+    if (intervals.empty()) return res;
+    
+    sort(intervals.begin(), intervals.end());
+    res.push_back(intervals[0]);
+    
+    for (int i = 1; i < intervals.size(); i++) {
+        if (res.back()[1] >= intervals[i][0]) {
+            res.back()[1] = max(res.back()[1], intervals[i][1]);
+        } else {
+            res.push_back(intervals[i]);
+        }
+    }
+    return res;
+}
+```
+
+### 📚 学到的知识点
+- **区间问题通用套路**：排序 → 遍历 → 合并/添加
+- **二维数组排序**：`sort()` 默认按第一个元素排序
+- **res.back() 技巧**：获取最后一个元素，便于比较和修改
+- **重叠判断**：`end >= next_start` 表示重叠（端点相连也算重叠）
+- **合并公式**：`[start, max(end1, end2)]`
+
+### ⚠️ 易错点 & 反思
+- ❌ 忘记排序直接遍历，导致无法正确合并
+- ❌ 重叠判断条件写错：应该是 `>=` 而不是 `>`
+- 💡 **排序的作用**：让重叠区间相邻，便于顺序处理
+- 💡 **端点相连也算重叠**：`[1,4]` 和 `[4,5]` 可合并为 `[1,5]`
+
+### 🔗 关联题目
+- [57] Insert Interval - 插入区间（类似思路）
+- [252] Meeting Rooms - 判断会议是否冲突
+- [253] Meeting Rooms II - 最少会议室数量（进阶）
+- [435] Non-overlapping Intervals - 移除最少区间使不重叠
+
+## 2026-04-15 | [Easy] Add Binary (67)
+
+### 🎯 核心思路
+[待填写：解题思路]
+
+### 🔑 关键代码片段
+```cpp
+// 待填写：核心代码
+```
+
+### 📚 学到的知识点
+- [待填写]
+
+### ⚠️ 易错点 & 反思
+- [待填写]
+
+### 🔗 关联题目
+- [待填写]
