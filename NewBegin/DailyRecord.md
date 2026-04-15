@@ -341,18 +341,81 @@ vector<vector<int>> merge(vector<vector<int>>& intervals) {
 ## 2026-04-15 | [Easy] Add Binary (67)
 
 ### 🎯 核心思路
-[待填写：解题思路]
+模拟二进制加法，从两个字符串末尾开始相加，处理进位。使用 `sum / 2` 计算进位，`sum % 2` 计算当前位。正向拼接结果后反转。时间复杂度 O(max(m,n))，空间复杂度 O(max(m,n))。
 
 ### 🔑 关键代码片段
 ```cpp
-// 待填写：核心代码
+string addBinary(string a, string b) {
+    string res;
+    int i = a.size() - 1, j = b.size() - 1, carry = 0;
+    
+    while (i >= 0 || j >= 0 || carry) {
+        int sum = carry;
+        if (i >= 0) sum += a[i--] - '0';
+        if (j >= 0) sum += b[j--] - '0';
+        carry = sum / 2;
+        res += to_string(sum % 2);
+    }
+    
+    reverse(res.begin(), res.end());
+    return res;
+}
 ```
 
 ### 📚 学到的知识点
-- [待填写]
+- **通用进位模式**：`carry = sum / base`，`current = sum % base`
+- **多操作数相加**：循环条件 `i>=0 || j>=0 || carry` 处理所有情况
+- **字符串反转技巧**：正向拼接后反转，比反向插入更高效
+- **字符转数字**：`c - '0'` 快速转换
 
 ### ⚠️ 易错点 & 反思
-- [待填写]
+- ❌ 忘记循环条件包含 `carry`，导致最后进位丢失
+- ❌ 字符串长度不同时没有正确处理边界
+- 💡 **与 Plus One 的联系**：都是"从后往前 + 进位处理"模式
+- 💡 **通用公式**：任意进制加法都可用 `sum / base` 和 `sum % base`
 
 ### 🔗 关联题目
-- [待填写]
+- [66] Plus One - 进位处理基础
+- [415] Add Strings - 十进制字符串加法
+- [43] Multiply Strings - 大数乘法（进阶）
+
+## 2026-04-15 | [Easy] Add Strings (415)
+
+### 🎯 核心思路
+模拟十进制加法，从两个字符串末尾开始相加，处理进位。使用 `sum / 10` 计算进位，`sum % 10` 计算当前位。与 Add Binary 几乎完全相同，只需改进制数。时间复杂度 O(max(m,n))，空间复杂度 O(max(m,n))。
+
+### 🔑 关键代码片段
+```cpp
+string addStrings(string num1, string num2) {
+    int i = num1.size() - 1;  // 注意：必须是 size() - 1
+    int j = num2.size() - 1;
+    int carry = 0;
+    string res = "";
+    
+    while (i >= 0 || j >= 0 || carry) {
+        int sum = carry;
+        if (i >= 0) sum += num1[i--] - '0';
+        if (j >= 0) sum += num2[j--] - '0';
+        carry = sum / 10;
+        res += to_string(sum % 10);
+    }
+    
+    reverse(res.begin(), res.end());
+    return res;
+}
+```
+
+### 📚 学到的知识点
+- **进制通用公式**：`carry = sum / base`，`current = sum % base`
+- **代码复用**：不同进制加法只需改一个数字（2 → 10）
+- **索引陷阱**：`size()` 返回长度，最后一个索引是 `size() - 1`
+
+### ⚠️ 易错点 & 反思
+- ❌ `int i = num1.size()` 导致越界访问，应该是 `size() - 1`
+- 💡 **与 Add Binary 的联系**：核心逻辑完全相同，只是进制不同
+- 💡 **通用模式**：任意进制加法都可用同一套代码
+
+### 🔗 关联题目
+- [67] Add Binary - 二进制加法
+- [66] Plus One - 进位处理基础
+- [43] Multiply Strings - 大数乘法（进阶）
