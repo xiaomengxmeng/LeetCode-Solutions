@@ -459,3 +459,41 @@ for (int i = p.size(); i < s.size(); i++) {
 - [242] Valid Anagram - 频率统计基础
 - [567] Permutation in String - 类似滑动窗口
 - [3] Longest Substring Without Repeating Characters - 滑动窗口经典
+
+## 2026-04-16 | [Medium] Longest Substring Without Repeating Characters (3)
+
+### 🎯 核心思路
+使用变长滑动窗口。右边界不断扩展，遇到重复字符时左边界跳跃更新到重复字符之后。用 pos 数组记录每个字符最后出现的位置，O(1) 判断是否在窗口内。时间复杂度 O(n)，空间复杂度 O(1)。
+
+### 🔑 关键代码片段
+```cpp
+int lengthOfLongestSubstring(string s) {
+    vector<int> pos(128, -1);
+    int left = 0, maxLen = 0;
+    
+    for (int i = 0; i < s.size(); i++) {
+        if (pos[s[i]] >= left) {
+            left = pos[s[i]] + 1;  // 跳到重复字符之后
+        }
+        pos[s[i]] = i;
+        maxLen = max(maxLen, i - left + 1);
+    }
+    return maxLen;
+}
+```
+
+### 📚 学到的知识点
+- **变长滑动窗口**：左右边界独立移动
+- **跳跃更新**：`left = pos[c] + 1`，O(1) 跳过重复字符
+- **pos 数组技巧**：记录最后位置，快速判断是否在窗口内
+- **窗口大小计算**：`i - left + 1`
+
+### ⚠️ 易错点 & 反思
+- ❌ `left = i` 导致窗口变空，应该是 `left = pos[s[i]] + 1`
+- 💡 **关键技巧**：`pos[s[i]] >= left` 判断重复字符是否在窗口内
+- 💡 **与固定窗口的区别**：左边界可以跳跃，不是每次移动1步
+
+### 🔗 关联题目
+- [438] Find All Anagrams - 固定窗口滑动
+- [567] Permutation in String - 固定窗口
+- [76] Minimum Window Substring - 变长窗口进阶
