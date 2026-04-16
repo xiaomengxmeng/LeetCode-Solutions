@@ -494,3 +494,89 @@ string addStrings(string num1, string num2) {
 
 
 
+
+## 2026-04-15 | [Medium] Find All Anagrams in a String (438)
+### 🤔 我的原始思路
+先得到p的长度，在编写函数判断是否是异位词，然后逐个判断s的子串是否是
+暴力时间复杂度 O(n*m)? 优化 相邻子串就一个字母不同 如果 子串的开头字母和子串的下一个字母相同，那下一个子串和当前的就是异位词 就可以减少和p的判断次数
+
+### 🔍 我的思考过程
+
+**Step 1: 问题分析**
+1. 核心要求：在 s 中找所有 p 的异位词子串
+2. 与 Valid Anagram 的关系：需要判断多个子串
+3. 暴力解法：O(n * m)，每次重新计算频率
+
+**Step 2: 设计方案（滑动窗口）**
+- **窗口大小**：固定为 p.size()
+- **核心优化**：相邻窗口只差一个字符，增量更新
+- **matched 变量**：记录匹配的字符数
+- **更新规则**：
+  - 进入字符：`count[c]--`，若变成 0 则 matched++，若变成 -1 则 matched--
+  - 离开字符：`count[c]++`，若变成 0 则 matched++，若变成 1 则 matched--
+
+**Step 3: 代码实现**
+```cpp
+vector<int> findAnagrams(string s, string p) {
+    vector<int> res;
+    if (s.size() < p.size()) return res;
+    
+    vector<int> count(26);
+    for (char c : p) count[c - 'a']++;
+    
+    int p_count = 0;
+    for (auto c : count) if (c != 0) p_count++;
+    
+    int matched = 0;
+    
+    // 初始化窗口
+    for (int i = 0; i < p.size(); i++) {
+        count[s[i] - 'a']--;
+        if (count[s[i] - 'a'] == 0) matched++;
+        else if (count[s[i] - 'a'] == -1) matched--;
+    }
+    if (matched == p_count) res.push_back(0);
+    
+    // 滑动窗口
+    for (int i = p.size(); i < s.size(); i++) {
+        // 进入字符
+        count[s[i] - 'a']--;
+        if (count[s[i] - 'a'] == 0) matched++;
+        else if (count[s[i] - 'a'] == -1) matched--;
+        
+        // 离开字符
+        count[s[i - p.size()] - 'a']++;
+        if (count[s[i - p.size()] - 'a'] == 0) matched++;
+        else if (count[s[i - p.size()] - 'a'] == 1) matched--;
+        
+        if (matched == p_count) res.push_back(i - p.size() + 1);
+    }
+    return res;
+}
+```
+
+**Step 4: Bug 修复**
+- ❌ 最初用遍历方式计算 matched，失去滑动窗口优势
+- ❌ 进入/离开字符时检查了错误的字符
+- ❌ 索引计算错误：起始索引应该是 `i - p.size() + 1`
+- ✅ 修复：增量更新 matched，O(1) 时间
+
+### 💡 对比收获
+
+**与 Valid Anagram 的对比**：
+| 维度 | Valid Anagram (242) | Find Anagrams (438) |
+|------|---------------------|---------------------|
+| 操作 | 判断两个字符串 | 找所有子串 |
+| 方法 | 频率统计 | 滑动窗口 + 频率统计 |
+| 复杂度 | O(n) | O(n) |
+
+**新学到的知识点**：
+1. **滑动窗口模板**：固定窗口大小 + 增量更新
+2. **matched 增量更新**：O(1) 判断是否匹配
+3. **count 变化的含义**：0→匹配，±1→不匹配
+4. **窗口索引**：起始 = `i - window_size + 1`
+
+
+
+
+

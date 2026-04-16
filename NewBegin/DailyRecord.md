@@ -419,3 +419,43 @@ string addStrings(string num1, string num2) {
 - [67] Add Binary - 二进制加法
 - [66] Plus One - 进位处理基础
 - [43] Multiply Strings - 大数乘法（进阶）
+
+## 2026-04-15 | [Medium] Find All Anagrams in a String (438)
+
+### 🎯 核心思路
+使用滑动窗口 + 频率统计。固定窗口大小为 p.size()，维护 count 数组记录差值，用 matched 变量增量更新匹配状态。每次窗口滑动只需 O(1) 更新。时间复杂度 O(n)，空间复杂度 O(1)。
+
+### 🔑 关键代码片段
+```cpp
+// 滑动窗口核心逻辑
+for (int i = p.size(); i < s.size(); i++) {
+    // 进入字符
+    count[s[i] - 'a']--;
+    if (count[s[i] - 'a'] == 0) matched++;
+    else if (count[s[i] - 'a'] == -1) matched--;
+    
+    // 离开字符
+    count[s[i - p.size()] - 'a']++;
+    if (count[s[i - p.size()] - 'a'] == 0) matched++;
+    else if (count[s[i - p.size()] - 'a'] == 1) matched--;
+    
+    if (matched == p_count) res.push_back(i - p.size() + 1);
+}
+```
+
+### 📚 学到的知识点
+- **滑动窗口模板**：固定窗口大小 + 增量更新
+- **matched 增量更新**：O(1) 判断是否匹配，避免每次遍历
+- **count 变化的含义**：0→匹配，±1→不匹配
+- **窗口索引**：起始 = `i - window_size + 1`
+
+### ⚠️ 易错点 & 反思
+- ❌ 用遍历方式计算 matched，失去滑动窗口 O(1) 优势
+- ❌ 进入/离开字符时检查了错误的字符
+- ❌ 索引计算错误：起始索引应该是 `i - p.size() + 1`
+- 💡 **关键技巧**：增量更新 matched，只关注 count 变化
+
+### 🔗 关联题目
+- [242] Valid Anagram - 频率统计基础
+- [567] Permutation in String - 类似滑动窗口
+- [3] Longest Substring Without Repeating Characters - 滑动窗口经典
