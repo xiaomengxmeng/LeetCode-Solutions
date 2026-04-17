@@ -649,5 +649,97 @@ i=4: 'b' → pos=1 >= left(1), left=2, 窗口="cab"
 4. **窗口大小计算**：`i - left + 1`
 
 
+## 2026-04-16 | [Medium] Permutation in String (567)
+### 🤔 我的原始思路
+这道题只需要判断异位词是否存在，几乎一样
+核心 固定大小滑动窗口 判断窗口是否是s1的排列
+关键 一样处理进入窗口和离开窗口的字符后是否匹配 
 
+### 🔍 我的思考过程
+
+**Step 1: 问题分析**
+1. 核心要求：判断 s2 是否包含 s1 的排列
+2. 与 Find Anagrams 的关系：几乎完全相同
+3. 区别：只需要返回 true/false，不需要所有索引
+
+**Step 2: 设计方案**
+- **窗口大小**：固定为 s1.size()
+- **核心逻辑**：与 Find Anagrams 完全相同
+- **优化**：找到匹配立即返回 true
+
+**Step 3: 代码实现**
+```cpp
+bool checkInclusion(string s1, string s2) {
+    if (s1.size() > s2.size()) return false;
+    
+    vector<int> count(26);
+    for (char c : s1) count[c - 'a']++;
+    
+    int s1_count = 0;
+    for (int c : count) if (c != 0) s1_count++;
+    
+    int match = 0;
+    
+    // 初始化窗口
+    for (int i = 0; i < s1.size(); i++) {
+        count[s2[i] - 'a']--;
+        if (count[s2[i] - 'a'] == 0) match++;
+        else if (count[s2[i] - 'a'] == -1) match--;
+    }
+    if (match == s1_count) return true;
+    
+    // 滑动窗口
+    for (int i = s1.size(); i < s2.size(); i++) {
+        // 进入字符
+        count[s2[i] - 'a']--;
+        if (count[s2[i] - 'a'] == 0) match++;
+        else if (count[s2[i] - 'a'] == -1) match--;
+        
+        // 离开字符
+        count[s2[i - s1.size()] - 'a']++;
+        if (count[s2[i - s1.size()] - 'a'] == 0) match++;
+        else if (count[s2[i - s1.size()] - 'a'] == 1) match--;
+        
+        if (match == s1_count) return true;
+    }
+    return false;
+}
+```
+
+**Step 4: Bug 修复**
+- ❌ 离开字符时检查 `== -1`，应该是 `== 1`
+- ✅ `count[c]++` 后，从 0→1 表示从匹配变成不足
+
+### 💡 对比收获
+
+**与 Find Anagrams 的对比**：
+| 维度 | Find Anagrams (438) | Permutation in String (567) |
+|------|---------------------|----------------------------|
+| 返回值 | 所有起始索引 | 是否存在 |
+| 核心逻辑 | 完全相同 | 完全相同 |
+| 优化 | 无 | 找到即返回 |
+
+**新学到的知识点**：
+1. **代码复用**：相同模式可以解决不同问题
+2. **提前返回优化**：找到答案立即返回，减少不必要的遍历
+3. **离开字符的 match 更新**：`count[c]++` 后检查 `== 1`
+
+
+## 2026-04-17 | [Easy] Move Zeroes (283)
+### 🤔 我的原始思路
+[在此记录你的初步想法]
+一个指针记录当前遍历位置，另一个指针记录当前0的起始索引
+从后往前遍历 不能使用额外空间原数组上修改
+
+### 🔍 我的思考过程
+[在此记录逐步思考过程]
+- 为什么从前往后遍历能保持顺序？
+原本元素顺序就是从前到后
+- 遍历结束后，slow 指针指向哪里？
+slow 指针执向第一个0元素
+- 如何把后面的位置填 0？
+  逐个替换成0
+
+### 💡 对比收获
+[在此记录学到的知识点]
 

@@ -497,3 +497,58 @@ int lengthOfLongestSubstring(string s) {
 - [438] Find All Anagrams - 固定窗口滑动
 - [567] Permutation in String - 固定窗口
 - [76] Minimum Window Substring - 变长窗口进阶
+
+## 2026-04-16 | [Medium] Permutation in String (567)
+
+### 🎯 核心思路
+与 Find Anagrams 几乎完全相同，固定窗口大小滑动，用 matched 变量增量更新匹配状态。区别是只需返回是否存在，找到即返回 true。时间复杂度 O(n)，空间复杂度 O(1)。
+
+### 🔑 关键代码片段
+```cpp
+bool checkInclusion(string s1, string s2) {
+    if (s1.size() > s2.size()) return false;
+    
+    vector<int> count(26);
+    for (char c : s1) count[c - 'a']++;
+    
+    int s1_count = 0, match = 0;
+    for (int c : count) if (c != 0) s1_count++;
+    
+    // 初始化 + 滑动窗口（与 Find Anagrams 相同）
+    // 找到匹配立即返回 true
+}
+```
+
+### 📚 学到的知识点
+- **代码复用**：相同滑动窗口模式解决不同问题
+- **提前返回优化**：找到答案立即返回
+- **离开字符的 match 更新**：`count[c]++` 后检查 `== 1`
+
+### ⚠️ 易错点 & 反思
+- ❌ 离开字符时检查 `== -1`，应该是 `== 1`
+- 💡 **与 Find Anagrams 的关系**：核心逻辑完全相同，只是返回值不同
+- 💡 **模式识别**：看到"排列/异位词"就要想到滑动窗口 + 频率统计
+
+### 🔗 关联题目
+- [438] Find All Anagrams - 相同逻辑，返回所有索引
+- [242] Valid Anagram - 频率统计基础
+- [567] Permutation in String - 本题
+
+## 2026-04-17 | [Easy] Move Zeroes (283)
+
+### 🎯 核心思路
+[待填写：解题思路]
+
+### 🔑 关键代码片段
+```cpp
+// 待填写：核心代码
+```
+
+### 📚 学到的知识点
+- [待填写]
+
+### ⚠️ 易错点 & 反思
+- [待填写]
+
+### 🔗 关联题目
+- [待填写]
