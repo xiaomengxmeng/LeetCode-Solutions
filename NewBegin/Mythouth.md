@@ -829,3 +829,75 @@ int removeElement(vector<int>& nums, int val) {
 2. **代码简化**：不需要填 0 时更简洁
 3. **模式识别**：原地操作 + 保持顺序 → 快慢指针
 
+
+## 2026-04-17 | [Easy] Reverse Linked List (206)
+### 🤔 我的原始思路
+链表离散存放 ，上一个节点中存放着指向下一个节点的地址指针
+数组顺序存放 可以随机访问
+反转链表 需要保存 当前节点 指向的节点 之前指向当前节点 的节点
+遍历过程需要3个指针 
+
+### 🔍 我的思考过程
+
+**Step 1: 问题分析**
+1. 核心要求：反转单链表
+2. 链表特点：离散存放，只能顺序访问
+3. 关键：改变每个节点的 next 指针
+
+**Step 2: 设计方案（三指针法）**
+- **prev**：前一个节点（初始 nullptr）
+- **cur**：当前节点
+- **next**：下一个节点（临时保存，防止丢失）
+
+**Step 3: 代码实现**
+```cpp
+ListNode* reverseList(ListNode* head) {
+    ListNode* prev = nullptr;
+    ListNode* cur = head;
+    
+    while (cur != nullptr) {
+        ListNode* next = cur->next;  // 保存下一个节点
+        cur->next = prev;            // 反转指针
+        prev = cur;                  // 移动 prev
+        cur = next;                  // 移动 cur
+    }
+    
+    return prev;  // 返回新的头节点
+}
+```
+
+**Step 4: 关键修正**
+- ❌ prev 初始指向头节点 → 会造成循环引用
+- ✅ prev 初始为 nullptr → 原头节点的 next 应该指向 nullptr
+- ❌ 循环条件 `cur->next == nullptr` → 最后一个节点未处理
+- ✅ 循环条件 `cur == nullptr` → 所有节点都被处理
+
+**示例追踪**：
+```
+原始：1 → 2 → 3 → nullptr
+
+第1轮：prev=nullptr, cur=1
+  next=2, 1->nullptr, prev=1, cur=2
+  结果：nullptr ← 1   2 → 3 → nullptr
+
+第2轮：prev=1, cur=2
+  next=3, 2->1, prev=2, cur=3
+  结果：nullptr ← 1 ← 2   3 → nullptr
+
+第3轮：prev=2, cur=3
+  next=nullptr, 3->2, prev=3, cur=nullptr
+  结果：nullptr ← 1 ← 2 ← 3
+
+结束：cur=nullptr, 返回 prev=3
+```
+
+### 💡 对比收获
+
+**新学到的知识点**：
+1. **链表操作核心**：改变指针方向
+2. **三指针法**：prev、cur、next 配合
+3. **临时保存**：改变指针前先保存 next，防止丢失
+4. **返回值**：prev 是新的头节点
+
+
+

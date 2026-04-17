@@ -601,3 +601,41 @@ int removeElement(vector<int>& nums, int val) {
 - [283] Move Zeroes - 快慢指针基础
 - [26] Remove Duplicates - 快慢指针去重
 - [80] Remove Duplicates II - 快慢指针进阶
+
+## 2026-04-17 | [Easy] Reverse Linked List (206)
+
+### 🎯 核心思路
+使用三指针法反转链表。prev 指向前一个节点，cur 指向当前节点，next 临时保存下一个节点。每次循环：保存 next → 反转指针 → 移动 prev 和 cur。时间复杂度 O(n)，空间复杂度 O(1)。
+
+### 🔑 关键代码片段
+```cpp
+ListNode* reverseList(ListNode* head) {
+    ListNode* prev = nullptr;
+    ListNode* cur = head;
+    
+    while (cur != nullptr) {
+        ListNode* next = cur->next;
+        cur->next = prev;
+        prev = cur;
+        cur = next;
+    }
+    return prev;
+}
+```
+
+### 📚 学到的知识点
+- **链表操作核心**：改变指针方向
+- **三指针法**：prev、cur、next 配合
+- **临时保存**：改变指针前先保存 next，防止丢失
+- **返回值**：prev 是新的头节点
+
+### ⚠️ 易错点 & 反思
+- ❌ prev 初始指向头节点会造成循环引用
+- ❌ 循环条件 `cur->next == nullptr` 会漏掉最后一个节点
+- 💡 **关键技巧**：先保存 next，再改变指针
+- 💡 **链表 vs 数组**：链表只能顺序访问，操作时注意保存指针
+
+### 🔗 关联题目
+- [92] Reverse Linked List II - 反转部分链表
+- [25] Reverse Nodes in k-Group - K个一组反转
+- [24] Swap Nodes in Pairs - 两两交换节点
