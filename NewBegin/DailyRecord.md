@@ -537,6 +537,42 @@ bool checkInclusion(string s1, string s2) {
 ## 2026-04-17 | [Easy] Move Zeroes (283)
 
 ### 🎯 核心思路
+使用快慢指针。快指针遍历数组，慢指针记录下一个非零元素应放置的位置。遇到非零元素放到慢指针位置，最后把慢指针之后的位置填 0。时间复杂度 O(n)，空间复杂度 O(1)。
+
+### 🔑 关键代码片段
+```cpp
+void moveZeroes(vector<int>& nums) {
+    int slow = 0;
+    for (int fast = 0; fast < nums.size(); fast++) {
+        if (nums[fast] != 0) {
+            nums[slow++] = nums[fast];
+        }
+    }
+    while (slow < nums.size()) {
+        nums[slow++] = 0;
+    }
+}
+```
+
+### 📚 学到的知识点
+- **快慢指针模式**：一个遍历，一个记录位置
+- **原地操作技巧**：先覆盖非零元素，后填 0
+- **顺序保持原理**：从前往后遍历 = 保持原顺序
+- **双指针分类**：快慢指针、左右指针
+
+### ⚠️ 易错点 & 反思
+- ❌ 从后往前遍历会反转顺序
+- 💡 **关键技巧**：慢指针记录"下一个放置位置"
+- 💡 **模式识别**：原地移动/删除元素 → 快慢指针
+
+### 🔗 关联题目
+- [27] Remove Element - 类似的快慢指针
+- [26] Remove Duplicates - 快慢指针去重
+- [80] Remove Duplicates II - 快慢指针进阶
+
+## 2026-04-17 | [Easy] Remove Element (27)
+
+### 🎯 核心思路
 [待填写：解题思路]
 
 ### 🔑 关键代码片段
