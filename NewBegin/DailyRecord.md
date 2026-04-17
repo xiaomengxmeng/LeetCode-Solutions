@@ -573,18 +573,31 @@ void moveZeroes(vector<int>& nums) {
 ## 2026-04-17 | [Easy] Remove Element (27)
 
 ### 🎯 核心思路
-[待填写：解题思路]
+与 Move Zeroes 几乎相同，使用快慢指针原地移除等于 val 的元素。快指针遍历，慢指针记录放置位置。区别是不需要最后填 0，直接返回 slow 作为新长度。时间复杂度 O(n)，空间复杂度 O(1)。
 
 ### 🔑 关键代码片段
 ```cpp
-// 待填写：核心代码
+int removeElement(vector<int>& nums, int val) {
+    int slow = 0;
+    for (int fast = 0; fast < nums.size(); fast++) {
+        if (nums[fast] != val) {
+            nums[slow++] = nums[fast];
+        }
+    }
+    return slow;
+}
 ```
 
 ### 📚 学到的知识点
-- [待填写]
+- **快慢指针通用模式**：原地移除/过滤元素
+- **代码简化**：不需要填 0 时更简洁
+- **模式识别**：原地操作 + 保持顺序 → 快慢指针
 
 ### ⚠️ 易错点 & 反思
-- [待填写]
+- 💡 **与 Move Zeroes 的关系**：核心逻辑完全相同，只是目标不同
+- 💡 **返回值**：slow 就是新长度
 
 ### 🔗 关联题目
-- [待填写]
+- [283] Move Zeroes - 快慢指针基础
+- [26] Remove Duplicates - 快慢指针去重
+- [80] Remove Duplicates II - 快慢指针进阶

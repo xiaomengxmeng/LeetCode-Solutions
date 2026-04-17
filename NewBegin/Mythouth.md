@@ -786,16 +786,46 @@ fast=4: 12 → slow=2 → [1, 3, 12, ...]
 
 ## 2026-04-17 | [Easy] Remove Element (27)
 ### 🤔 我的原始思路
-[在此记录你的初步想法]
 - 快慢指针
 - 从前往后遍历
 - 移除特定val
 - 返回 移除后的新长度
 
 ### 🔍 我的思考过程
-[在此记录逐步思考过程]
 
+**Step 1: 问题分析**
+1. 核心要求：原地移除所有等于 val 的元素
+2. 与 Move Zeroes 的关系：几乎完全相同
+3. 区别：不需要最后填 0，只需返回新长度
+
+**Step 2: 设计方案**
+- **快慢指针**：与 Move Zeroes 相同
+- **条件**：`nums[fast] != val`
+- **返回**：slow（新长度）
+
+**Step 3: 代码实现**
+```cpp
+int removeElement(vector<int>& nums, int val) {
+    int slow = 0;
+    for (int fast = 0; fast < nums.size(); fast++) {
+        if (nums[fast] != val) {
+            nums[slow] = nums[fast];
+            slow++;
+        }
+    }
+    return slow;
+}
+```
+
+**Step 4: 与 Move Zeroes 对比**
+- Move Zeroes：移除 0，最后需要填 0
+- Remove Element：移除 val，不需要填 0
+- 核心逻辑完全相同
 
 ### 💡 对比收获
-[在此记录学到的知识点]
+
+**新学到的知识点**：
+1. **快慢指针通用模式**：原地移除/过滤元素
+2. **代码简化**：不需要填 0 时更简洁
+3. **模式识别**：原地操作 + 保持顺序 → 快慢指针
 
