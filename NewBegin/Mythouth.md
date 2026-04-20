@@ -900,4 +900,100 @@ ListNode* reverseList(ListNode* head) {
 4. **返回值**：prev 是新的头节点
 
 
+## 2026-04-21 | [Medium] Swap Nodes in Pairs (24)
+### 🤔 我的原始思路
+两两交换节点
+第一步保留当前节点的前一个节点 保留下一节点指向的节点
+pre cur next next->next
+第二步 pre指向next next 指向 cur cur指向next->next
+奇数个节点最后一个节点不需要交换
+需要虚拟头节点来辅助头节点交换时正确指向头节点
+
+### 🔍 我的思考过程
+
+**Step 1: 问题分析**
+1. 核心要求：两两交换相邻节点，不能只改变值
+2. 与 Reverse Linked List 的区别：部分交换而非全部反转
+3. 关键：虚拟头节点 + 正确的交换顺序
+
+**Step 2: 设计方案**
+- **虚拟头节点**：统一处理头节点交换
+- **四个节点**：prev、cur、n1、n2
+- **交换顺序**：先连后断，先存后改
+
+**Step 3: 代码实现（迭代版）**
+```cpp
+ListNode* swapPairs(ListNode* head) {
+    ListNode* dummy = new ListNode(0);
+    dummy->next = head;
+    ListNode* prev = dummy;
+    
+    while (prev->next && prev->next->next) {
+        ListNode* cur = prev->next;
+        ListNode* n1 = cur->next;
+        ListNode* n2 = n1->next;
+        
+        prev->next = n1;    // 先连
+        n1->next = cur;
+        cur->next = n2;     // 后断
+        
+        prev = cur;
+    }
+    return dummy->next;
+}
+```
+
+**Step 4: 递归版本**
+```cpp
+ListNode* swapPairs(ListNode* head) {
+    if (!head || !head->next) return head;
+    
+    ListNode* n1 = head->next;
+    ListNode* n2 = n1->next;
+    
+    n1->next = head;
+    head->next = swapPairs(n2);
+    
+    return n1;
+}
+```
+
+**Step 5: 关键问题解答**
+
+**Q1: 为什么交换顺序不能换？**
+```
+如果先 cur->next = n2：
+cur → n2
+n1 与链表断开！无法再访问 n1->next
+
+正确：先保存 n2，再改变指针
+口诀：先连后断，先存后改
+```
+
+**Q2: 循环 → 递归 转换技巧**
+```
+循环 → 递归 三步走：
+1. 终止条件：while (条件) → if (!条件) return
+2. 处理当前：循环体 → 递归函数体
+3. 处理剩余：更新变量 → 递归调用
+
+对比：
+| 循环 | 递归 |
+|------|------|
+| prev->next && prev->next->next | head && head->next |
+| prev = cur | swapPairs(n2) |
+| O(1) 空间 | O(n) 递归栈 |
+```
+
+### 💡 对比收获
+
+**新学到的知识点**：
+1. **虚拟头节点**：统一处理边界情况
+2. **交换顺序原则**：先连后断，先存后改
+3. **循环转递归模板**：终止条件 → 处理当前 → 递归调用
+4. **递归简洁性**：代码更短，但空间复杂度更高
+
+
+
+
 

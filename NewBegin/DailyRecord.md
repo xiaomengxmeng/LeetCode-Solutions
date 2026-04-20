@@ -639,3 +639,56 @@ ListNode* reverseList(ListNode* head) {
 - [92] Reverse Linked List II - 反转部分链表
 - [25] Reverse Nodes in k-Group - K个一组反转
 - [24] Swap Nodes in Pairs - 两两交换节点
+
+## 2026-04-21 | [Medium] Swap Nodes in Pairs (24)
+
+### 🎯 核心思路
+使用虚拟头节点统一处理边界情况，两两交换相邻节点。关键原则：先连后断，先存后改。迭代版 O(1) 空间，递归版更简洁但 O(n) 空间。
+
+### 🔑 关键代码片段
+```cpp
+// 迭代版
+ListNode* swapPairs(ListNode* head) {
+    ListNode* dummy = new ListNode(0);
+    dummy->next = head;
+    ListNode* prev = dummy;
+    
+    while (prev->next && prev->next->next) {
+        ListNode* cur = prev->next;
+        ListNode* n1 = cur->next;
+        ListNode* n2 = n1->next;
+        
+        prev->next = n1;
+        n1->next = cur;
+        cur->next = n2;
+        prev = cur;
+    }
+    return dummy->next;
+}
+
+// 递归版
+ListNode* swapPairs(ListNode* head) {
+    if (!head || !head->next) return head;
+    ListNode* n1 = head->next;
+    head->next = swapPairs(n1->next);
+    n1->next = head;
+    return n1;
+}
+```
+
+### 📚 学到的知识点
+- **虚拟头节点**：统一处理头节点边界情况
+- **交换顺序原则**：先连后断，先存后改
+- **循环转递归模板**：终止条件 → 处理当前 → 递归调用
+- **递归 vs 迭代**：递归简洁但空间高，迭代高效但代码长
+
+### ⚠️ 易错点 & 反思
+- ❌ 循环条件用 `||` 导致空指针崩溃，应该用 `&&`
+- ❌ 循环条件用 `head` 而不是 `prev->next`，head 不会更新
+- 💡 **交换顺序**：必须先保存 n2，再改变指针
+- 💡 **循环→递归**：while 条件 → if 终止，变量更新 → 递归调用
+
+### 🔗 关联题目
+- [206] Reverse Linked List - 链表反转基础
+- [25] Reverse Nodes in k-Group - K个一组反转（进阶）
+- [92] Reverse Linked List II - 反转部分链表
