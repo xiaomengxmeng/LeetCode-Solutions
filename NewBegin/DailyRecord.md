@@ -783,3 +783,35 @@ ListNode *detectCycle(ListNode *head) {
 - [141] Linked List Cycle - 判断是否有环
 - [876] Middle of the Linked List - 快慢指针找中点
 - [287] Find the Duplicate Number - 类似环检测思想
+
+## 2026-04-21 | [Easy] Middle of the Linked List (876)
+
+### 🎯 核心思路
+快指针走2步，慢指针走1步。当快指针到达末尾时，慢指针正好在中点。循环条件 `fast && fast->next` 自动处理奇偶情况，偶数时返回第二个中间节点。
+
+### 🔑 关键代码片段
+```cpp
+ListNode* middleNode(ListNode* head) {
+    ListNode *slow = head, *fast = head;
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    return slow;
+}
+```
+
+### 📚 学到的知识点
+- **快慢指针找中点**：快指针到末尾，慢指针在中点
+- **循环条件**：`fast && fast->next` 自动处理奇偶
+- **题目要求**：返回第二个中间节点，与循环条件完美匹配
+
+### ⚠️ 易错点 & 反思
+- ❌ 循环条件用 `||` 而不是 `&&`
+- ❌ 手动处理奇偶情况，其实循环条件自动处理
+- 💡 **关键理解**：快指针走完，慢指针正好走一半
+
+### 🔗 关联题目
+- [141] Linked List Cycle - 快慢指针检测环
+- [142] Linked List Cycle II - 快慢指针找入口
+- [234] Palindrome Linked List - 找中点 + 反转

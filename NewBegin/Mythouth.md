@@ -1113,6 +1113,63 @@ return p1;
 3. **空间优化**：O(1) 空间解决定位问题
 
 
+## 2026-04-21 | [Easy] Middle of the Linked List (876)
+### 🤔 我的原始思路
+快指针走两步，慢指针1布，快指针到末尾时，慢指针在中点
+奇偶处理
+奇数 当fast->next=nullptr时 slow 走一步到中点
+偶数 因为返回第二个中间节点 slow 再走一步
+循环条件 fast!=nullprt||fast->next!=nullptr
+
+### 🔍 我的思考过程
+
+**Step 1: 问题分析**
+1. 核心要求：找链表中间节点，偶数返回第二个
+2. 快慢指针：快指针走2步，慢指针走1步
+
+**Step 2: 奇偶分析**
+```
+奇数 [1,2,3,4,5]：
+slow: 1→2→3, fast: 1→3→5
+fast->next=nullptr 时结束，slow=3 ✅
+
+偶数 [1,2,3,4,5,6]：
+slow: 1→2→3→4, fast: 1→3→5→nullptr
+fast=nullptr 时结束，slow=4 ✅（第二个中间节点）
+```
+
+**Step 3: 循环条件修正**
+- ❌ 原始：`fast != nullptr || fast->next != nullptr`
+- ✅ 正确：`fast && fast->next`
+- 原因：`||` 会导致逻辑错误，必须两个条件都满足才能继续
+
+**Step 4: 代码实现**
+```cpp
+ListNode* middleNode(ListNode* head) {
+    ListNode *slow = head, *fast = head;
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    return slow;
+}
+```
+
+### 💡 对比收获
+
+**快慢指针三种应用**：
+| 题目 | 目标 | 循环条件 |
+|------|------|----------|
+| [141] | 判断有环 | `fast && fast->next` |
+| [142] | 找环入口 | `fast && fast->next` |
+| [876] | 找中点 | `fast && fast->next` |
+
+**新学到的知识点**：
+1. **循环条件统一**：三种场景用相同条件
+2. **奇偶自动处理**：无需手动判断
+3. **题目要求匹配**：返回第二个中间节点正好符合
+
+
 
 
 
