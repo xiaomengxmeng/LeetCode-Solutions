@@ -738,3 +738,48 @@ bool hasCycle(ListNode *head) {
 - [142] Linked List Cycle II - 找到环的入口节点
 - [876] Middle of the Linked List - 快慢指针找中点
 - [202] Happy Number - 快慢指针检测循环
+
+## 2026-04-21 | [Medium] Linked List Cycle II (142)
+
+### 🎯 核心思路
+分两步：① 快慢指针找到相遇点 ② 从相遇点和头节点同时出发，速度相同，相遇点即为入口。数学推导：a = c（头到入口距离 = 相遇点到入口距离）。
+
+### 🔑 关键代码片段
+```cpp
+ListNode *detectCycle(ListNode *head) {
+    ListNode *slow = head, *fast = head;
+    
+    // Step 1: 找相遇点
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) break;
+    }
+    
+    // 无环
+    if (!fast || !fast->next) return nullptr;
+    
+    // Step 2: 找入口（a = c）
+    ListNode *p1 = head, *p2 = slow;
+    while (p1 != p2) {
+        p1 = p1->next;
+        p2 = p2->next;
+    }
+    return p1;
+}
+```
+
+### 📚 学到的知识点
+- **数学推导**：`a = nr - b = c`，头到入口 = 相遇点到入口
+- **两阶段法**：先找相遇点，再找入口
+- **与 [141] 的关系**：[141] 是判断，[142] 是定位
+
+### ⚠️ 易错点 & 反思
+- ❌ 忘记检查无环情况：`!fast || !fast->next`
+- ❌ 第二步两个指针速度不同，应该都是 1 步
+- 💡 **关键理解**：相遇点不是入口，但可以用来找入口
+
+### 🔗 关联题目
+- [141] Linked List Cycle - 判断是否有环
+- [876] Middle of the Linked List - 快慢指针找中点
+- [287] Find the Duplicate Number - 类似环检测思想
