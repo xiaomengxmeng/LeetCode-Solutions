@@ -1170,7 +1170,8 @@ ListNode* middleNode(ListNode* head) {
 3. **题目要求匹配**：返回第二个中间节点正好符合
 
 
-
+因为判断了 fast && fast->next 两个节点
+返回第一个中间节点的话就额外保存一下指向的节点slow  当 偶数时 返回该节点，奇数时正常返回slow
 
 
 
