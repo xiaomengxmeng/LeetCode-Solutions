@@ -692,3 +692,49 @@ ListNode* swapPairs(ListNode* head) {
 - [206] Reverse Linked List - 链表反转基础
 - [25] Reverse Nodes in k-Group - K个一组反转（进阶）
 - [92] Reverse Linked List II - 反转部分链表
+
+## 2026-04-21 | [Easy] Linked List Cycle (141)
+
+### 🎯 核心思路
+使用快慢指针检测环。快指针每次走2步，慢指针每次走1步。如果链表有环，快指针最终会追上慢指针；如果无环，快指针会到达 nullptr。时间复杂度 O(n)，空间复杂度 O(1)。
+
+### 🔑 关键代码片段
+```cpp
+// 快慢指针法（O(1) 空间）
+bool hasCycle(ListNode *head) {
+    ListNode *slow = head, *fast = head;
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) return true;
+    }
+    return false;
+}
+
+// 哈希表法（O(n) 空间）
+bool hasCycle(ListNode *head) {
+    unordered_set<ListNode*> visited;
+    while (head) {
+        if (visited.count(head)) return true;
+        visited.insert(head);
+        head = head->next;
+    }
+    return false;
+}
+```
+
+### 📚 学到的知识点
+- **快慢指针原理**：快指针比慢指针每轮多走1步，环内距离逐渐缩短直到相遇
+- **循环条件**：`fast && fast->next`，确保快指针可以安全走两步
+- **两种方法对比**：快慢指针 O(1) 空间更优，哈希表更直观
+
+### ⚠️ 易错点 & 反思
+- ❌ 循环条件写 `fast->next` 而不是 `fast`，当 head 为空时崩溃
+- ❌ 检查 `slow->next` 没有意义，慢指针不需要提前判断
+- ❌ 快指针移动方式不标准，应该 `fast->next->next` 一次走两步
+- 💡 **关键技巧**：先检查指针非空，再访问其 next
+
+### 🔗 关联题目
+- [142] Linked List Cycle II - 找到环的入口节点
+- [876] Middle of the Linked List - 快慢指针找中点
+- [202] Happy Number - 快慢指针检测循环

@@ -994,6 +994,66 @@ n1 与链表断开！无法再访问 n1->next
 4. **递归简洁性**：代码更短，但空间复杂度更高
 
 
+## 2026-04-21 | [Easy] Linked List Cycle (141)
+### 🤔 我的原始思路
+链表中的节点指向了之前的节点
+链表有环时，遍历会遍历到之前遍历过的节点
+可以使用额外空间记录已访问节点
+快指针在足够久时会与慢指针重合
+
+### 🔍 我的思考过程
+
+**Step 1: 问题分析**
+1. 核心要求：判断链表是否有环
+2. 两种思路：哈希表记录已访问 / 快慢指针相遇
+
+**Step 2: 初版代码实现**
+```cpp
+while(fast->next!=nullptr && slow->next!=nullptr){
+    fast = fast->next;
+    slow = slow->next;
+    if(fast==slow) return true;
+    if(fast->next!=nullptr) fast = fast->next;
+    if(fast==slow) return true;
+}
+```
+
+**Step 3: 发现问题**
+- ❌ 当 `head == nullptr` 时，`fast->next` 崩溃
+- ❌ 循环条件应该检查 `fast && fast->next`
+- ❌ 两次检查 `fast == slow` 冗余
+- ❌ 快指针移动方式不标准
+
+**Step 4: 正确实现**
+```cpp
+while (fast && fast->next) {
+    slow = slow->next;          // 慢指针走1步
+    fast = fast->next->next;    // 快指针走2步
+    if (slow == fast) return true;
+}
+```
+
+**Step 5: 为什么快慢指针一定能相遇？**
+- 快指针比慢指针每轮多走 1 步
+- 在环内，每轮距离缩短 1
+- 最终距离变为 0（相遇）
+
+### 💡 对比收获
+
+**两种方法对比**：
+| 方法 | 空间复杂度 | 思路 |
+|------|-----------|------|
+| 快慢指针 | O(1) ⭐ | 追逐相遇 |
+| 哈希表 | O(n) | 记录已访问 |
+
+**新学到的知识点**：
+1. **快慢指针原理**：速度差导致距离缩短，最终相遇
+2. **循环条件**：`fast && fast->next` 确保安全访问
+3. **空指针检查**：先检查指针非空，再访问其成员
+
+
+
+
 
 
 
