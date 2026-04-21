@@ -815,3 +815,45 @@ ListNode* middleNode(ListNode* head) {
 - [141] Linked List Cycle - 快慢指针检测环
 - [142] Linked List Cycle II - 快慢指针找入口
 - [234] Palindrome Linked List - 找中点 + 反转
+
+## 2026-04-22 | [Easy] Merge Two Sorted Lists (21)
+
+### 🎯 核心思路
+使用虚拟头节点 + tail 指针，逐个比较两个有序链表的节点值，将较小的节点连接到新链表末尾。循环结束后连接剩余节点。时间复杂度 O(n+m)，空间复杂度 O(1)。
+
+### 🔑 关键代码片段
+```cpp
+ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+    ListNode *dummy = new ListNode();
+    ListNode *tail = dummy;
+    
+    while (list1 && list2) {
+        if (list1->val <= list2->val) {
+            tail->next = list1;
+            list1 = list1->next;
+        } else {
+            tail->next = list2;
+            list2 = list2->next;
+        }
+        tail = tail->next;
+    }
+    
+    tail->next = list1 ? list1 : list2;
+    return dummy->next;
+}
+```
+
+### 📚 学到的知识点
+- **虚拟头节点**：统一处理第一个节点的连接
+- **稳定性**：`<=` 保证相等元素的相对顺序不变
+- **迭代 vs 递归**：迭代 O(1) 空间，递归 O(n) 栈空间
+
+### ⚠️ 易错点 & 反思
+- ❌ 连接剩余节点时写反了：`if (list1) tail->next = list2`
+- ✅ 正确：`if (list1) tail->next = list1`
+- 💡 **记忆方法**：谁不为空就连谁
+
+### 🔗 关联题目
+- [23] Merge k Sorted Lists - 合并K个有序链表
+- [148] Sort List - 归并排序链表
+- [88] Merge Sorted Array - 数组版本
