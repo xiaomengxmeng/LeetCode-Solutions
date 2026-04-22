@@ -1202,4 +1202,21 @@ cur->next 等于剩下的即可
 - 避免单独处理头节点
 
 
+## 2026-04-22 | [Easy] Remove Duplicates from Sorted List (83)
+### 🤔 我的原始思路
+[在此记录你的初步想法]
+重复元素位置排在一起
+链表排序好了，就cur 当cur->val== cur->next->val 
+cur->next=cur->next->next
+空链表直接返回
+所有元素相同 正常处理
+没有重复元素 就会返回原链表
+### 🔍 我的思考过程
+[在此记录逐步思考过程]
+跳过后 cur 不移动 因为上一个节点是链接到当前的cur上的
+### 💡 对比收获
+[在此记录学到的知识点]
+因为头节点不会被删除
+[82] Remove Duplicates from Sorted List II
+因为头节点可能被删除
 

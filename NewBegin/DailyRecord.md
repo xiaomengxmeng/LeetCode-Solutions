@@ -857,3 +857,38 @@ ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
 - [23] Merge k Sorted Lists - 合并K个有序链表
 - [148] Sort List - 归并排序链表
 - [88] Merge Sorted Array - 数组版本
+
+## 2026-04-22 | [Easy] Remove Duplicates from Sorted List (83)
+
+### 🎯 核心思路
+利用有序链表的特点，重复元素相邻。用单指针遍历，当 `cur->val == cur->next->val` 时跳过下一个节点（cur 不移动），否则移动 cur。时间复杂度 O(n)，空间复杂度 O(1)。
+
+### 🔑 关键代码片段
+```cpp
+ListNode* deleteDuplicates(ListNode* head) {
+    ListNode *cur = head;
+    while (cur && cur->next) {
+        if (cur->val == cur->next->val) {
+            cur->next = cur->next->next;  // 跳过，cur不移动
+        } else {
+            cur = cur->next;  // 不相等，移动cur
+        }
+    }
+    return head;
+}
+```
+
+### 📚 学到的知识点
+- **有序链表去重**：重复元素相邻，单指针即可
+- **cur 移动时机**：相等时不移动，不相等时移动
+- **虚拟头节点判断**：头节点不删除则不需要
+
+### ⚠️ 易错点 & 反思
+- ❌ 相等时移动 cur，导致连续重复处理不完整
+- ✅ 相等时 cur 不移动，继续检查下一个
+- 💡 **与数组去重 [26] 联系**：核心思想相同，都是利用有序性
+
+### 🔗 关联题目
+- [82] Remove Duplicates from Sorted List II - 删除所有重复
+- [26] Remove Duplicates from Sorted Array - 数组版本
+- [27] Remove Element - 数组删除元素
