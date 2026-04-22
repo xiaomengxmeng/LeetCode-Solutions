@@ -892,3 +892,90 @@ ListNode* deleteDuplicates(ListNode* head) {
 - [82] Remove Duplicates from Sorted List II - 删除所有重复
 - [26] Remove Duplicates from Sorted Array - 数组版本
 - [27] Remove Element - 数组删除元素
+
+## 2026-04-22 | [Easy] Remove Linked List Elements (203)
+
+### 🎯 核心思路
+使用虚拟头节点 + cur 指针遍历。检查 `cur->next->val == val`，相等则跳过（删除），不等则移动 cur。时间复杂度 O(n)，空间复杂度 O(1)。
+
+### 🔑 关键代码片段
+```cpp
+ListNode* removeElements(ListNode* head, int val) {
+    ListNode* dummy = new ListNode(0, head);
+    ListNode* cur = dummy;
+    
+    while (cur->next) {
+        if (cur->next->val == val) {
+            cur->next = cur->next->next;  // 删除，cur不移动
+        } else {
+            cur = cur->next;  // 不相等，移动cur
+        }
+    }
+    return dummy->next;
+}
+```
+
+### 📚 学到的知识点
+- **虚拟头节点**：头节点可能被删除时必须使用
+- **cur 位置**：指向待检查节点的前一个
+- **遍历对象**：检查 cur->next 而非 cur
+
+### ⚠️ 易错点 & 反思
+- ❌ cur 指向 head，无法检查头节点
+- ✅ cur 指向 dummy，检查头节点时就是 dummy->next
+- 💡 **与 [27] 联系**：都是删除特定值，核心思想相同
+
+### 🔗 关联题目
+- [27] Remove Element - 数组删除特定值
+- [83] Remove Duplicates - 有序链表去重
+- [82] Remove Duplicates II - 删除所有重复
+
+## 2026-04-22 | [Easy] Palindrome Linked List (234)
+
+### 🎯 核心思路
+三步法：① 快慢指针找中点 ② 反转后半部分 ③ 双指针比较。时间复杂度 O(n)，空间复杂度 O(1)。综合了 [876] 找中点和 [206] 反转链表。
+
+### 🔑 关键代码片段
+```cpp
+bool isPalindrome(ListNode* head) {
+    // Step 1: 找中点
+    ListNode *slow = head, *fast = head;
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    
+    // Step 2: 反转后半部分
+    ListNode *prev = nullptr, *cur = slow;
+    while (cur) {
+        ListNode* next = cur->next;
+        cur->next = prev;
+        prev = cur;
+        cur = next;
+    }
+    
+    // Step 3: 比较
+    ListNode *left = head, *right = prev;
+    while (right) {
+        if (left->val != right->val) return false;
+        left = left->next;
+        right = right->next;
+    }
+    return true;
+}
+```
+
+### 📚 学到的知识点
+- **技巧综合**：找中点 + 反转 + 比较
+- **奇偶自动处理**：用 `while(right)` 作为条件
+- **恢复链表**：面试可能要求恢复原链表
+
+### ⚠️ 易错点 & 反思
+- ❌ 用 `while(left)` 作为条件，奇数时会多比较一次
+- ✅ 用 `while(right)` 自动处理奇数情况
+- 💡 **综合题价值**：检验多个技巧的掌握程度
+
+### 🔗 关联题目
+- [876] Middle of the Linked List - 找中点
+- [206] Reverse Linked List - 反转链表
+- [143] Reorder List - 重排链表
