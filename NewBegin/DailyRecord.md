@@ -1011,3 +1011,60 @@ ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
 - [141] Linked List Cycle - 快慢指针相遇
 - [142] Linked List Cycle II - 找相遇点
 
+## 2026-04-23 | [Medium] Remove Nth Node From End of List (19)
+
+### 🎯 核心思路
+快慢指针 + 虚拟头节点。快指针先走 n 步建立间隔，然后快慢指针同时移动。当快指针到达末尾时，慢指针正好在倒数第 n 个节点的前一个位置。时间复杂度 O(n)，空间复杂度 O(1)。
+
+### 🔑 关键代码片段
+```cpp
+ListNode* removeNthFromEnd(ListNode* head, int n) {
+    ListNode *dummy = new ListNode(0, head);
+    ListNode *fast = dummy, *slow = dummy;
+    
+    for (int i = 0; i < n; i++) {
+        fast = fast->next;
+    }
+    
+    while (fast->next) {
+        fast = fast->next;
+        slow = slow->next;
+    }
+    
+    slow->next = slow->next->next;
+    return dummy->next;
+}
+```
+
+### 📚 学到的知识点
+- **快慢指针间隔**：快指针先走 n 步建立间隔
+- **虚拟头节点**：处理删除头节点情况
+- **一次遍历**：满足进阶要求
+
+### ⚠️ 易错点 & 反思
+- ❌ 快指针走 n+1 步，导致 slow 指向要删除的节点而非前一个
+- ✅ 快指针走 n 步，slow 正好指向删除节点的前一个
+- 💡 **关键**：slow 要停在删除节点的前一个位置
+
+### 🔗 关联题目
+- [876] Middle of the Linked List - 快慢指针找中点
+- [203] Remove Linked List Elements - 删除节点
+
+## 2026-04-23 | [Medium] Add Two Numbers (2)
+
+### 🎯 核心思路
+[待填写]
+
+### 🔑 关键代码片段
+```cpp
+// [待填写]
+```
+
+### 📚 学到的知识点
+- [待填写]
+
+### ⚠️ 易错点 & 反思
+- [待填写]
+
+### 🔗 关联题目
+- [待填写]
