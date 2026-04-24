@@ -1011,7 +1011,7 @@ ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
 - [141] Linked List Cycle - 快慢指针相遇
 - [142] Linked List Cycle II - 找相遇点
 
-## 2026-04-23 | [Medium] Remove Nth Node From End of List (19)
+## 2026-04-24 | [Medium] Remove Nth Node From End of List (19)
 
 ### 🎯 核心思路
 快慢指针 + 虚拟头节点。快指针先走 n 步建立间隔，然后快慢指针同时移动。当快指针到达末尾时，慢指针正好在倒数第 n 个节点的前一个位置。时间复杂度 O(n)，空间复杂度 O(1)。
@@ -1050,21 +1050,45 @@ ListNode* removeNthFromEnd(ListNode* head, int n) {
 - [876] Middle of the Linked List - 快慢指针找中点
 - [203] Remove Linked List Elements - 删除节点
 
-## 2026-04-23 | [Medium] Add Two Numbers (2)
+## 2026-04-24 | [Medium] Add Two Numbers (2)
 
 ### 🎯 核心思路
-[待填写]
+模拟手动加法，逐位相加并处理进位。用虚拟头节点 + tail 指针构建新链表。循环条件 `l1 || l2 || carry` 确保处理最后还有进位的情况。时间复杂度 O(max(m,n))，空间复杂度 O(max(m,n))。
 
 ### 🔑 关键代码片段
 ```cpp
-// [待填写]
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+    int carry = 0;
+    ListNode *dummy = new ListNode(0), *tail = dummy;
+    
+    while (l1 || l2 || carry) {
+        int val1 = l1 ? l1->val : 0;
+        int val2 = l2 ? l2->val : 0;
+        int sum = val1 + val2 + carry;
+        
+        carry = sum / 10;
+        tail->next = new ListNode(sum % 10);
+        tail = tail->next;
+        
+        l1 = l1 ? l1->next : nullptr;
+        l2 = l2 ? l2->next : nullptr;
+    }
+    return dummy->next;
+}
 ```
 
 ### 📚 学到的知识点
-- [待填写]
+- **模拟手动加法**：逐位相加，处理进位
+- **虚拟头节点 + tail**：构建新链表的标准模式
+- **循环条件**：`l1 || l2 || carry` 处理最后进位
 
 ### ⚠️ 易错点 & 反思
-- [待填写]
+- ❌ 直接访问 `l1->val`，空指针崩溃
+- ❌ 用 `dummy->next = node` 覆盖，只保留最后一个节点
+- ✅ 用 `tail` 指针跟踪末尾，正确连接
+- 💡 **关键**：三元运算符处理空指针
 
 ### 🔗 关联题目
-- [待填写]
+- [67] Add Binary - 二进制加法
+- [415] Add Strings - 字符串加法
+- [445] Add Two Numbers II - 正序存储版本
