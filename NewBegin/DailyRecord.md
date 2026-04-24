@@ -979,3 +979,35 @@ bool isPalindrome(ListNode* head) {
 - [876] Middle of the Linked List - 找中点
 - [206] Reverse Linked List - 反转链表
 - [143] Reorder List - 重排链表
+
+## 2026-04-23 | [Easy] Intersection of Two Linked Lists (160)
+
+### 🎯 核心思路
+双指针走两遍法。pa 走完链表A后跳到链表B，pb 走完链表B后跳到链表A。两个指针走的步数相同（a+b+c），会在相交点相遇。如果不相交，都会走到 nullptr。时间复杂度 O(m+n)，空间复杂度 O(1)。
+
+### 🔑 关键代码片段
+```cpp
+ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+    ListNode *pa = headA, *pb = headB;
+    while (pa != pb) {
+        pa = pa ? pa->next : headB;
+        pb = pb ? pb->next : headA;
+    }
+    return pa;
+}
+```
+
+### 📚 学到的知识点
+- **双指针走两遍**：消除长度差异
+- **简洁写法**：三元运算符处理指针切换
+- **数学原理**：a + b + c = a + c + b
+
+### ⚠️ 易错点 & 反思
+- ❌ 只走一遍，无法同步到达相交点
+- ✅ 走两遍，消除长度差异
+- 💡 **技巧**：指针走到末尾后跳到另一个链表头
+
+### 🔗 关联题目
+- [141] Linked List Cycle - 快慢指针相遇
+- [142] Linked List Cycle II - 找相遇点
+
