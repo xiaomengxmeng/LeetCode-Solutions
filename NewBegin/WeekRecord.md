@@ -1,3 +1,7 @@
+# 📊 学习总结
+
+---
+
 # 📊 第一周学习总结 (2026-04-13 ~ 2026-04-17)
 
 ## 📈 学习统计
@@ -219,18 +223,6 @@ return prev;
 
 ---
 
-## 📚 下周计划
-
-根据学习路径，第2周应该学习：
-
-| 主题 | 重点题目 | 核心技能 |
-|------|----------|----------|
-| 链表进阶 | Swap Nodes in Pairs, Reverse Linked List II | 虚拟头节点、递归 |
-| 链表技巧 | Linked List Cycle, Find Middle | 快慢指针检测环 |
-| 复习巩固 | 重做本周错题 | 检验知识内化 |
-
----
-
 ## 💡 学习心得
 
 1. **模式识别很重要**：看到"两数之和"→ 哈希表，看到"括号匹配"→ 栈
@@ -241,3 +233,224 @@ return prev;
 ---
 
 **第一周圆满完成！继续加油！** 🎉
+
+---
+
+# 📊 第二周学习总结 (2026-04-21 ~ 2026-04-23)
+
+## 📈 学习统计
+
+| 指标 | 数值 |
+|------|------|
+| 总题目数 | 11 道 |
+| Easy | 7 道 |
+| Medium | 4 道 |
+| 学习天数 | 3 天 |
+
+---
+
+## 📅 每日完成情况
+
+| 日期 | 完成题目 | 核心技巧 |
+|------|----------|----------|
+| 04-21 | Swap Nodes in Pairs, Linked List Cycle, Cycle II, Middle Node | 虚拟头节点、快慢指针 |
+| 04-22 | Merge Two Lists, Remove Duplicates, Remove Elements, Palindrome | 虚拟头节点、找中点+反转 |
+| 04-23 | Intersection, Remove Nth Node, Add Two Numbers | 双指针走两遍、快慢指针间隔 |
+
+---
+
+## 🎯 核心技巧体系
+
+### 1️⃣ 快慢指针 (Fast-Slow Pointers) ⭐ 核心技巧
+
+**核心思想**：快指针走2步，慢指针走1步
+
+| 应用场景 | 题目 | 循环条件 |
+|----------|------|----------|
+| 检测环 | [141] Linked List Cycle | `fast && fast->next` |
+| 找环入口 | [142] Linked List Cycle II | 两阶段法 |
+| 找中点 | [876] Middle of the Linked List | `fast && fast->next` |
+| 找倒数第N个 | [19] Remove Nth Node | 快指针先走n步 |
+
+**模板代码**：
+```cpp
+ListNode *slow = head, *fast = head;
+while (fast && fast->next) {
+    slow = slow->next;
+    fast = fast->next->next;
+}
+// slow 即为中点
+```
+
+**两阶段法找环入口**：
+```cpp
+// 阶段1：找相遇点
+while (fast && fast->next) {
+    slow = slow->next;
+    fast = fast->next->next;
+    if (slow == fast) break;
+}
+if (!fast || !fast->next) return nullptr;
+
+// 阶段2：找入口
+ListNode *p1 = head, *p2 = slow;
+while (p1 != p2) {
+    p1 = p1->next;
+    p2 = p2->next;
+}
+return p1;
+```
+
+---
+
+### 2️⃣ 虚拟头节点 (Dummy Head)
+
+**核心思想**：统一处理头节点边界情况
+
+| 场景 | 题目 | 原因 |
+|------|------|------|
+| 头节点可能被删除 | [203] Remove Elements | 需要保护头节点 |
+| 头节点需要交换 | [24] Swap Nodes in Pairs | 第一个节点需要前驱 |
+| 构建新链表 | [21] Merge Two Lists, [2] Add Two Numbers | 统一连接逻辑 |
+
+**判断是否需要虚拟头节点**：
+- 头节点会被删除/修改？ → **需要**
+- 头节点不会被删除？ → **不需要**
+
+**模板代码**：
+```cpp
+ListNode *dummy = new ListNode(0, head);
+ListNode *cur = dummy;
+// ... 操作
+return dummy->next;
+```
+
+---
+
+### 3️⃣ 链表反转 (Reverse Linked List)
+
+**核心思想**：三指针反转，先保存 next
+
+| 题目 | 应用场景 |
+|------|----------|
+| [206] Reverse Linked List | 完整反转 |
+| [234] Palindrome | 反转后半部分 |
+
+**模板代码**：
+```cpp
+ListNode *prev = nullptr, *cur = head;
+while (cur) {
+    ListNode *next = cur->next;
+    cur->next = prev;
+    prev = cur;
+    cur = next;
+}
+return prev;
+```
+
+---
+
+### 4️⃣ 双指针走两遍 (Two Pointers Walk Twice)
+
+**核心思想**：消除长度差异
+
+| 题目 | 应用场景 |
+|------|----------|
+| [160] Intersection | 找相交点 |
+
+**原理**：
+```
+pA: 链表A → 链表B，走 a + b + c 步
+pB: 链表B → 链表A，走 a + c + b 步
+步数相等，必在相交点相遇！
+```
+
+**模板代码**：
+```cpp
+ListNode *pa = headA, *pb = headB;
+while (pa != pb) {
+    pa = pa ? pa->next : headB;
+    pb = pb ? pb->next : headA;
+}
+return pa;
+```
+
+---
+
+### 5️⃣ 逐位相加 + 进位 (Add with Carry)
+
+**核心思想**：模拟手动加法
+
+| 题目 | 应用场景 |
+|------|----------|
+| [2] Add Two Numbers | 链表相加 |
+
+**模板代码**：
+```cpp
+int carry = 0;
+ListNode *dummy = new ListNode(0), *tail = dummy;
+
+while (l1 || l2 || carry) {
+    int val1 = l1 ? l1->val : 0;
+    int val2 = l2 ? l2->val : 0;
+    int sum = val1 + val2 + carry;
+    
+    carry = sum / 10;
+    tail->next = new ListNode(sum % 10);
+    tail = tail->next;
+    
+    l1 = l1 ? l1->next : nullptr;
+    l2 = l2 ? l2->next : nullptr;
+}
+return dummy->next;
+```
+
+---
+
+## ⚠️ 易错点总结
+
+| 类型 | 常见错误 | 正确做法 |
+|------|----------|----------|
+| 快慢指针 | 循环条件用 `\|\|` | 用 `&&` |
+| 虚拟头节点 | 忘记使用 | 头节点可能被删除时必须用 |
+| 删除节点 | cur 指向 head | cur 应指向 dummy 或前驱 |
+| 链表连接 | `dummy->next = node` 覆盖 | 用 tail 指针跟踪 |
+| 空指针 | 直接访问 `l1->val` | `l1 ? l1->val : 0` |
+| 指针移动 | 相等时移动 cur | 删除时 cur 不移动 |
+
+---
+
+## 📊 两周对比
+
+| 维度 | Week 1 | Week 2 |
+|------|--------|--------|
+| 题目数 | 16 道 | 11 道 |
+| Easy | 10 道 | 7 道 |
+| Medium | 6 道 | 4 道 |
+| 核心技巧 | 8 种 | 5 种（链表专题） |
+| 重点 | 数组、字符串、滑动窗口 | 链表、快慢指针 |
+
+---
+
+## 📚 下周计划
+
+根据学习路径，第3周应该学习：
+
+| 主题 | 重点题目 | 核心技能 |
+|------|----------|----------|
+| 栈进阶 | Valid Parentheses, Next Greater Element | 单调栈 |
+| 队列应用 | Implement Queue using Stacks | 队列实现 |
+| 复习巩固 | 重做链表错题 | 检验知识内化 |
+
+---
+
+## 💡 学习心得
+
+1. **快慢指针是链表神器**：检测环、找中点、找倒数第N个，一套模板搞定
+2. **虚拟头节点判断**：头节点可能被删除 → 需要
+3. **先保存再修改**：链表操作的核心原则
+4. **综合题检验掌握程度**：[234] 回文链表 = 找中点 + 反转 + 比较
+
+---
+
+**第二周圆满完成！链表技巧已掌握！** 🎉
