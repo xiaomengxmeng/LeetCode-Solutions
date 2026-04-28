@@ -1093,7 +1093,7 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
 - [415] Add Strings - 字符串加法
 - [445] Add Two Numbers II - 正序存储版本
 
-## 2026-04-28 | [Easy] Implement Queue using Stacks (232)
+## 2026-04-27 | [Easy] Implement Queue using Stacks (232)
 
 ### 🎯 核心思路
 用两个栈实现队列：栈1负责入队，栈2负责出队。关键优化：只有当栈2为空时，才将栈1的元素全部倒入栈2。每个元素最多移动2次，均摊时间复杂度 O(1)。
@@ -1145,7 +1145,7 @@ public:
 - [225] Implement Stack using Queues - 用队列实现栈
 - [155] Min Stack - 栈的变体
 
-## 2026-04-28 | [Easy] Implement Stack using Queues (225)
+## 2026-04-27 | [Easy] Implement Stack using Queues (225)
 
 ### 🎯 核心思路
 用一个队列实现栈。每次 push 时，先入队，再把前面 size-1 个元素移到队尾，让新元素在队头。push O(n)，pop/top O(1)。
