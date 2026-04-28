@@ -28,7 +28,25 @@ using namespace std;
 class Solution {
 public:
     vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
-        
+        unordered_map<int, int> greater_map;
+        stack<int> stack;
+        for(int x:nums2){
+            while (!stack.empty()&&x>stack.top())   
+            {
+                greater_map[stack.top()] = x;
+                stack.pop();
+            }
+            stack.push(x);
+        }
+        vector<int> res ;
+        for(int x:nums1){
+            if(greater_map.count(x)){
+                res.push_back(greater_map[x]);
+            }else{
+                res.push_back(-1);
+            }
+        }
+        return res;
     }
 };
 // @lc code=end
