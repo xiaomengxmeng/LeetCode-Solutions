@@ -503,18 +503,18 @@ d:\TraePro\Leet\NewBegin\
 
 #### 场景2：解决具体问题
 ```
-用户："我想做 Group Anagrams 这道题"
+用户："我想做 Group Anagrams 这道题" 或 "下一题"
 → AI响应流程：
-  1. ⭐ 自动生成模板到 Mythouth/今日.md（见下方"模板生成机制"）
+  1. ⭐ 在 Mythouth/YYYY-MM-DD.md 中追加题目模板（见下方"模板生成机制"）
   2. 展示题目描述和示例
   3. 进入Step 1（问题分析），提出2-3个问题
-  4. ⏸️ 等待用户回答并记录到 Mythouth/今日.md
+  4. ⏸️ 等待用户回答并记录到 Mythouth/YYYY-MM-DD.md
   5. 根据用户回答，进入Step 2（思路设计）
   6. 引导用户设计解决方案（不给代码，只给提示）
   7. ⏸️ 进入Step 3（代码实现），安静等待用户写代码
   8. 用户主动提交代码后，Review并提供反馈
   9. 进入Step 4-5，完成剩余步骤
-  10. 最后更新 DailyRecord/今日.md 记录（仅在此时）
+  10. 最后更新 DailyRecord/YYYY-MM-DD.md 记录（仅在此时）
 ```
 
 #### 场景3：复习旧题
