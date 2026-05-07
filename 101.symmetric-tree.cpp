@@ -79,13 +79,30 @@ using namespace std;
 class Solution {
 public:
 
-    bool compail(TreeNode *p,TreeNode *q){
-        if(!p&&!q) return true;
-        if(!p||!q) return false;
-        return p->val==q->val&&compail(p->left,q->right)&&compail(p->right,q->left);
-    }
+    // bool compail(TreeNode *p,TreeNode *q){
+    //     if(!p&&!q) return true;
+    //     if(!p||!q) return false;
+    //     return p->val==q->val&&compail(p->left,q->right)&&compail(p->right,q->left);
+    // }
+    // bool isSymmetric(TreeNode* root) {
+    //     return compail(root->left,root->right);
+    // }
     bool isSymmetric(TreeNode* root) {
-        return compail(root->left,root->right);
+        stack<pair<TreeNode *,TreeNode *>> st;
+        st.push({root->left,root->right});
+        while (!st.empty())
+        {
+            auto [p, q] = st.top();
+            st.pop();
+            if(!p&&!q)continue;
+            if(!p||!q)
+                return false;
+            if(p->val!=q->val)
+                return false;
+            st.push({p->left, q->right});
+            st.push({q->left, p->right});
+        }
+        return true;
     }
 };
 // @lc code=end
