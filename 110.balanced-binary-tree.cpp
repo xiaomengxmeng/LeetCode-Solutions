@@ -91,8 +91,7 @@ using namespace std;
 class Solution
 {
 public:
-    // 递归解法
-    int getHeight(TreeNode *root)
+        int getHeight(TreeNode *root)
     {
         if (root == nullptr)
             return 0;
@@ -105,38 +104,44 @@ public:
             return max(leftHeight, rightHeight) + 1;
         }
     }
-    bool isBalanced(TreeNode *root)
-    {
-        // return getHeight(root) != -1;
-        if (root == nullptr)
-            return true;
-        stack<TreeNode *> stk;
-        unordered_map<TreeNode *, int> nodeHeight; // 存储每个节点的高度
-        stk.push(root);
-        while (!stk.empty())
-        {
-            TreeNode *curr = stk.top();
-            if ((curr->left == nullptr || nodeHeight.count(curr->left)) &&
-                (curr->right == nullptr || nodeHeight.count(curr->right)))
-            {
-                stk.pop();
-                int leftH = curr->left ? nodeHeight[curr->left] : 0;
-                int rightH = curr->right ? nodeHeight[curr->right] : 0;
-                if (abs(leftH - rightH) > 1)
-                    return false;
-                nodeHeight[curr] = max(leftH, rightH) + 1;
-            }else{
-                // 后序遍历，先遍历左右子树，再遍历当前节点
-                if(curr->right)
-                    stk.push(curr->right);
-                if(curr->left)
-                    stk.push(curr->left);
-            }
+
+bool isBalanced(TreeNode* root) {
+    return getHeight(root) != -1;
+}
+    // 递归解法
+
+    // bool isBalanced(TreeNode *root)
+    // {
+    //     // return getHeight(root) != -1;
+    //     if (root == nullptr)
+    //         return true;
+    //     stack<TreeNode *> stk;
+    //     unordered_map<TreeNode *, int> nodeHeight; // 存储每个节点的高度
+    //     stk.push(root);
+    //     while (!stk.empty())
+    //     {
+    //         TreeNode *curr = stk.top();
+    //         if ((curr->left == nullptr || nodeHeight.count(curr->left)) &&
+    //             (curr->right == nullptr || nodeHeight.count(curr->right)))
+    //         {
+    //             stk.pop();
+    //             int leftH = curr->left ? nodeHeight[curr->left] : 0;
+    //             int rightH = curr->right ? nodeHeight[curr->right] : 0;
+    //             if (abs(leftH - rightH) > 1)
+    //                 return false;
+    //             nodeHeight[curr] = max(leftH, rightH) + 1;
+    //         }else{
+    //             // 后序遍历，先遍历左右子树，再遍历当前节点
+    //             if(curr->right)
+    //                 stk.push(curr->right);
+    //             if(curr->left)
+    //                 stk.push(curr->left);
+    //         }
 
 
-        }
-        return true;
-    }
+    //     }
+    //     return true;
+    // }
 };
 /*
 在非递归后序遍历中 先压右子树，再压左子树 ，是由 栈的"后进先出(LIFO)"特性 决定的，目的是为了确保最终处理顺序符合后序遍历的要求（左→右→根）。

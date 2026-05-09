@@ -611,3 +611,174 @@ for (int i = 0; i < n * 2; i++) {
 ---
 
 **第三周圆满完成！Hard 题突破！单调栈掌握！** 🎉
+
+---
+
+# 📊 第四周学习总结 (2026-05-06 ~ 2026-05-09)
+
+## 📈 学习统计
+
+| 指标 | 数值 |
+|------|------|
+| 总题目数 | 8 道 |
+| Easy | 7 道 |
+| Medium | 1 道 |
+| 学习天数 | 4 天 |
+
+---
+
+## 📅 每日完成情况
+
+| 日期 | 完成题目 | 核心技巧 |
+|------|----------|----------|
+| 05-06 | Maximum Depth, Same Tree | DFS递归、同时遍历 |
+| 05-07 | Symmetric Tree, Invert Tree, Level Order | 镜像比较、BFS层序 |
+| 05-08 | Minimum Depth | BFS找最短路径 |
+| 05-09 | Balanced Tree, Path Sum | 自底向上递归、递归减值 |
+
+---
+
+## 🎯 核心技巧体系
+
+### 1️⃣ 二叉树递归 (Binary Tree Recursion) ⭐ 本周核心
+
+**核心思想**：递归 = 终止条件 + 递归逻辑 + 返回值
+
+| 题目 | 递归逻辑 | 终止条件 |
+|------|----------|----------|
+| [104] Max Depth | `max(left, right) + 1` | `root == nullptr` |
+| [100] Same Tree | `left && right` | 结构或值不同 |
+| [101] Symmetric | `mirror(left, right)` | 不对称 |
+| [226] Invert | `swap(left, right)` | `root == nullptr` |
+| [112] Path Sum | `targetSum -= val` | 叶子节点且和为0 |
+
+**通用模板**：
+```cpp
+TreeNode* dfs(TreeNode* root) {
+    if (!root) return nullptr;  // 终止条件
+    // 递归逻辑
+    TreeNode* left = dfs(root->left);
+    TreeNode* right = dfs(root->right);
+    // 返回值处理
+    return result;
+}
+```
+
+---
+
+### 2️⃣ 自底向上递归 (Bottom-Up Recursion)
+
+**核心思想**：先递归到底，再向上返回结果
+
+| 题目 | 应用场景 |
+|------|----------|
+| [110] Balanced Tree | 用 -1 标记不平衡 |
+
+**关键代码**：
+```cpp
+int getHeight(TreeNode* root) {
+    if (!root) return 0;
+    int left = getHeight(root->left);
+    if (left == -1) return -1;  // 提前返回
+    int right = getHeight(root->right);
+    if (right == -1 || abs(left - right) > 1)
+        return -1;
+    return max(left, right) + 1;
+}
+```
+
+---
+
+### 3️⃣ BFS 层序遍历 (Level Order Traversal)
+
+**核心思想**：队列 + 按层处理
+
+| 题目 | 应用场景 |
+|------|----------|
+| [102] Level Order | 收集每层节点 |
+| [111] Min Depth | 找第一个叶子节点 |
+
+**模板代码**：
+```cpp
+queue<TreeNode*> q;
+q.push(root);
+while (!q.empty()) {
+    int size = q.size();  // 当前层节点数
+    for (int i = 0; i < size; i++) {
+        TreeNode* node = q.front(); q.pop();
+        if (node->left) q.push(node->left);
+        if (node->right) q.push(node->right);
+    }
+}
+```
+
+---
+
+### 4️⃣ 镜像比较 (Mirror Comparison)
+
+**核心思想**：左子树的左 vs 右子树的右
+
+| 题目 | 应用场景 |
+|------|----------|
+| [101] Symmetric Tree | 判断对称 |
+
+**关键代码**：
+```cpp
+bool mirror(TreeNode* left, TreeNode* right) {
+    if (!left && !right) return true;
+    if (!left || !right) return false;
+    return left->val == right->val
+        && mirror(left->left, right->right)
+        && mirror(left->right, right->left);
+}
+```
+
+---
+
+## ⚠️ 易错点总结
+
+| 类型 | 常见错误 | 正确做法 |
+|------|----------|----------|
+| 路径和 | 只检查 `targetSum == 0` | 必须同时检查是叶子节点 |
+| 最小深度 | 只检查 `!root->left` | 必须同时检查 `!root->right` |
+| 平衡树 | 直接用 `abs(left, right)` | 用 `abs(left - right)` |
+| BFS | 每次处理一个节点 | 按层处理，先记录 `size` |
+| 递归返回值 | 忘记返回 | 每条路径都要 return |
+
+---
+
+## 📊 四周对比
+
+| 维度 | Week 1 | Week 2 | Week 3 | Week 4 |
+|------|--------|--------|--------|--------|
+| 题目数 | 16 道 | 11 道 | 6 道 | 8 道 |
+| Easy | 10 道 | 7 道 | 2 道 | 7 道 |
+| Medium | 6 道 | 4 道 | 3 道 | 1 道 |
+| Hard | 0 道 | 0 道 | 1 道 | 0 道 |
+| 核心技巧 | 8 种 | 5 种 | 4 种 | 4 种（二叉树专题） |
+| 重点 | 数组、字符串 | 链表 | 单调栈 | 二叉树递归 |
+
+---
+
+## 📚 下周计划
+
+根据学习路径，第5周应该学习：
+
+| 主题 | 重点题目 | 核心技能 |
+|------|----------|----------|
+| 二叉树遍历 | 144, 94, 145 | 前中后序递归转迭代 |
+| 构造二叉树 | 105, 106 | 从遍历序列构造 |
+| 二叉搜索树 | 98, 700 | BST性质应用 |
+
+---
+
+## 💡 学习心得
+
+1. **递归三要素**：终止条件 + 递归逻辑 + 返回值
+2. **自底向上更高效**：平衡树用 -1 标记，避免重复计算
+3. **BFS 找最短路径**：最小深度 = BFS 遇到第一个叶子节点
+4. **镜像比较技巧**：对称问题 = 左子树的左 vs 右子树的右
+
+---
+
+**第四周圆满完成！二叉树基础掌握！** 🎉
