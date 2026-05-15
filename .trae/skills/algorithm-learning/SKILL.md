@@ -357,6 +357,9 @@ d:\TraePro\Leet\NewBegin\
 │   ├── 2026-04-13.md
 │   ├── 2026-04-14.md
 │   └── ...
+├── Review\             # 📂 复习练习用的 .cpp 文件
+│   ├── 234-palindrome-linked-list.cpp
+│   └── ...
 ├── WeekRecord.md       # 周总结，包含技巧体系、易错点、学习心得
 └── ProblemRecord.md    # ⭐ 已完成题目记录（推荐新题目时必须检查！）
 ```
@@ -367,6 +370,7 @@ d:\TraePro\Leet\NewBegin\
 |------|--------|----------|----------|----------|
 | **Mythouth/YYYY-MM-DD.md** | 用户+AI引导 | 原始思路、思考过程、疑问、探索 | 学习过程中实时记录 | Step 1-4 过程中 |
 | **DailyRecord/YYYY-MM-DD.md** | AI系统生成 | 标准化的学习总结、代码、知识点 | 学习结束后生成 | **仅在 Step 5 完成** |
+| **Review/题号-题目名.cpp** | AI系统生成 | 复习用的代码骨架（@lcpr模板+函数签名） | 复习时生成 | 复习时 |
 | **ProblemRecord.md** | AI系统维护 | 已完成题目列表、题号索引 | **推荐新题目前检查** | **每完成一道题** |
 | **WeekRecord.md** | AI系统生成 | 周总结、技巧体系、学习心得 | 周末总结时 | **每周一次** |
 
@@ -426,21 +430,100 @@ d:\TraePro\Leet\NewBegin\
 - [类似题目1](链接)
 ```
 
-## 🔄 复习机制（艾宾浩斯遗忘曲线）
+## 🔄 复习机制（专用流程）
 
-### 复习时间点
+### 🎯 核心原则
+
+- 复习时**不给任何思路提示**，只展示题目
+- 在 `Review/` 目录生成独立的 **.cpp 文件**，与日常记录不混合
+- 用户写完代码后对比历史记录，自己发现进步/不足
+
+### 📋 执行步骤
+
+```
+用户说"复习" / "随" / "来一道复习"
+  → ① 从 ProblemRecord.md 中选已完成题目（优先选时间久远的）
+  → ② 在 Review/ 目录生成 .cpp 模板：
+       Review/题号-题目名.cpp
+       （带 @lcpr 模板 + 函数签名 + 核心技巧注释，无思路提示）
+  → ③ 展示题目，要求不查资料独立完成
+  → ④ Step 3 等待用户提交代码（安静等待，不催促）
+  → ⑤ 用户提交后 Review：
+       - 打开原 DailyRecord 对比思路
+       - 指出进步和退步的地方
+       - 不提优化建议（除非用户问）
+```
+
+### 📝 Review/题号-题目名.cpp 模板格式
+
+```cpp
+/*
+ * @lc app=leetcode.cn id=题号 lang=cpp
+ * @lcpr version=30204
+ *
+ * [题号] 题目名称
+ * 
+ * [复习] 原完成日期：YYYY-MM-DD
+ * 核心技巧：xxx
+ */
+
+// @lcpr-template-start
+using namespace std;
+#include <algorithm>
+#include <array>
+#include <bitset>
+#include <climits>
+#include <deque>
+#include <functional>
+#include <iostream>
+#include <list>
+#include <queue>
+#include <stack>
+#include <tuple>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+// @lcpr-template-end
+// @lc code=start
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    // 函数签名（根据题目要求自动生成）
+
+};
+// @lc code=end
+
+/*
+
+// @lcpr case=start
+// [示例输入1]\n
+// @lcpr case=end
+
+// @lcpr case=start
+// [示例输入2]\n
+// @lcpr case=end
+
+ */
+```
+
+### 📅 艾宾浩斯遗忘曲线复习时间点
+
 - ✅ **第1天**：完成后立即复习
 - ✅ **第2天**：第二天开始时快速回顾
 - ✅ **第4天**：周末集中复习本周所有题目
 - ✅ **第7天**：每周日进行周复盘
 - ✅ **第14天**：两周后进行月度复习
 - ✅ **第30天**：一个月后深度重构
-
-### 复习方式
-1. **重做题目**：不看答案，独立完成
-2. **优化代码**：尝试用更优的方法解决
-3. **讲解思路**：用口头或文字解释解题过程
-4. **对比进步**：查看之前的记录，看是否有新的理解
 
 ## 🤖 AI助手交互指南（v3.0）
 
@@ -593,13 +676,19 @@ DailyRecord/YYYY-MM-DD.md 首次创建时内容：
 
 #### 场景3：复习旧题
 ```
-用户："帮我复习上周做过的动态规划题"
+用户："复习" / "随便" / "来一道复习"
 → AI响应流程：
-  1. 从 DailyRecord/ 目录中找到相关日期的文件
-  2. 提供题目描述但不给解答
-  3. 要求用户重新思考和实现
-  4. 用户完成后对比之前的解法
-  5. 总结新的理解和进步
+  1. 从 ProblemRecord.md 中选已完成题目（优先选时间久远的）
+  2. ⭐ 在 Review/ 目录生成 .cpp 模板：
+     - Review/题号-题目名.cpp
+     - 带 @lcpr 模板 + 函数签名 + 核心技巧注释
+     - 不给任何思路展开或代码提示
+  3. 展示题目描述（可选）
+  4. ⏸️ 等待用户独立完成代码（不催促）
+  5. 用户提交后 Review：
+     - 打开原 DailyRecord 对比思路
+     - 指出进步和退步的地方
+     - 不提优化建议（除非用户问）
 ```
 
 #### 场景4：记录学习成果
