@@ -1,8 +1,11 @@
 /*
  * @lc app=leetcode.cn id=206 lang=cpp
  * @lcpr version=30204
- *
- * [206] 反转链表
+ */
+
+
+
+ /* [206] 反转链表
  * 
  * [复习] 原完成日期：2026-04-17
  * 核心技巧：三指针反转
@@ -40,7 +43,16 @@ using namespace std;
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
+        ListNode * prev=nullptr, *cur=head;
+        while(cur!=nullptr)
+        {
+            ListNode *next =cur->next;
+            cur->next=prev;
+            prev=cur;
+            cur=next;
 
+        }
+        return prev;
     }
 };
 // @lc code=end

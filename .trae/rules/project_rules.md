@@ -30,7 +30,7 @@ description: AI算法学习助手严格规范
 |------|------|------|----------|
 | 思考记录 | `Mythouth/YYYY-MM-DD.md` | 原始思路、思考过程、收获 | Step 1-4 实时记录 |
 | 学习记录 | `DailyRecord/YYYY-MM-DD.md` | 标准化总结 | **仅 Step 5 完成** |
-| 复习练习 | `Review/题号-题目名.cpp` | 复习用的代码骨架 | **复习时生成** |
+| 复习练习 | `Review/题号-英文题目名.cpp` | 复习用的代码骨架，全英文 | **复习时生成** |
 | 题目记录 | `ProblemRecord.md` | 已完成列表、统计 | **每完成一道题** |
 | 周记录 | `WeekRecord.md` | 周总结 | 每周一次 |
 
@@ -90,27 +90,27 @@ description: AI算法学习助手严格规范
 用户说"复习" / "随便" / "来一道复习"
   → ① 从 ProblemRecord.md 中选已完成题目（优先选时间久远的）
   → ② 在 Review/ 目录生成 .cpp 模板：
-       Review/题号-题目名.cpp
-       （只有函数签名+核心技巧注释，无思路提示）
+       Review/题号-英文题目名.cpp
+       （@lcpr模板+函数签名，全英文，无思路提示）
   → ③ 展示题目，要求不查资料独立完成
   → ④ Step 3 等待用户提交代码（安静等待，不催促）
   → ⑤ 用户提交后 Review：
        - 打开原 DailyRecord 对比思路
-       - 指出进步和退步的地方
+       - 指出进步和不足
        - 不提优化建议（除非用户问）
 ```
 
-### 📝 Review/题号-题目名.cpp 模板格式
+### 📝 Review/题号-英文题目名.cpp 模板格式（全英文）
 
 ```cpp
 /*
  * @lc app=leetcode.cn id=题号 lang=cpp
  * @lcpr version=30204
  *
- * [题号] 题目名称
+ * [题号] 题目英文名
  * 
- * [复习] 原完成日期：YYYY-MM-DD
- * 核心技巧：xxx
+ * [Review] Original completion: YYYY-MM-DD
+ * Key technique: xxx
  */
 
 // @lcpr-template-start
@@ -144,7 +144,7 @@ using namespace std;
  */
 class Solution {
 public:
-    // 函数签名（根据题目要求自动生成）
+    // function signature (auto-generated per problem)
 
 };
 // @lc code=end
@@ -152,11 +152,11 @@ public:
 /*
 
 // @lcpr case=start
-// [示例输入1]\n
+// [example input 1]\n
 // @lcpr case=end
 
 // @lcpr case=start
-// [示例输入2]\n
+// [example input 2]\n
 // @lcpr case=end
 
  */
