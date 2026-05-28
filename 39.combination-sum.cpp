@@ -27,26 +27,48 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+
+vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
         vector<vector<int>> res;
         vector<int> path;
-        dfs(path,target,candidates,0,res);
+        sort(candidates.begin(), candidates.end());  // 先排序
+        backtrack(candidates, 0,0, path, res,target);
         return res;
+}
+  void backtrack(vector<int> &candidates, int start,int sum, vector<int> &path, vector<vector<int>> &res,int target)
+{
+    if(sum==target){
+        res.push_back(path);
     }
-    void dfs(vector<int> &path,int last,vector<int>& candidates,int start,vector<vector<int>> &res){
-        if(last ==0){
-            res.push_back(path);
-            
-        }
-        for(int i=start;i<candidates.size();i++){
-            if(last-candidates[i]>=0){
-                path.push_back(candidates[i]);
-                dfs(path,last-candidates[i],candidates,i,res);
-                path.pop_back();
-            }
-        }
+    for (int i = start; i < candidates.size();i++){
+        if(sum+candidates[i]>target )break;
         
+        path.push_back(candidates[i]);
+        backtrack(candidates, i, sum+candidates[i], path, res, target);
+        path.pop_back();
     }
+}
+    // 之前写的
+    // vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+    //     vector<vector<int>> res;
+    //     vector<int> path;
+    //     dfs(path,target,candidates,0,res);
+    //     return res;
+    // }
+    // void dfs(vector<int> &path,int last,vector<int>& candidates,int start,vector<vector<int>> &res){
+    //     if(last ==0){
+    //         res.push_back(path);
+            
+    //     }
+    //     for(int i=start;i<candidates.size();i++){
+    //         if(last-candidates[i]>=0){
+    //             path.push_back(candidates[i]);
+    //             dfs(path,last-candidates[i],candidates,i,res);
+    //             path.pop_back();
+    //         }
+    //     }
+        
+    // }
 };
 // @lc code=end
 
