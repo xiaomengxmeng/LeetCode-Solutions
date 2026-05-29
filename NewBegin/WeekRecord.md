@@ -1082,6 +1082,175 @@ while (!q.empty()) {
 | 核心算法 | 二分查找专题 | 标准二分、边界二分、答案二分 |
 | 复习巩固 | 链表三连（206/234/19）再练 | 吃透反转链表 |
 
+------
+
+# 📊 第六周学习总结 (2026-05-25 ~ 2026-05-29)
+
+## 📈 学习统计
+
+| 指标 | 数值 |
+|:----:|:----:|
+| 总题目数 | **13 道** 🏆 |
+| Easy | 0 道 |
+| Medium | **13 道** |
+| 学习天数 | 5 天 ✅ 全勤 |
+
 ---
 
-**第五周圆满完成！图专题 + 后序遍历模式已掌握！** 🎉
+## 📅 每日完成情况
+
+| 日期 | 完成题目 | 核心技巧 |
+|:----:|:---------|:---------|
+| 05-25 | Binary Search, Search Insert Position, Find First and Last Position | 标准二分、lower_bound 两次 |
+| 05-26 | Search in Rotated Sorted Array | 旋转数组分段二分 |
+| 05-27 | Find Minimum in Rotated Array, Search 2D Matrix, Koko Eating Bananas | 旋转找极值、二维拉平、二分答案 |
+| 05-28 | Permutations, Subsets, Combination Sum | 回溯三模板：used / start / 可重复 |
+| 05-29 | Word Search, Generate Parentheses, Letter Combinations | 网格回溯、约束回溯、映射回溯 |
+
+---
+
+## 🎯 核心技巧体系
+
+### 1️⃣ 二分查找五连 (704 / 35 / 34 / 33 / 153)
+
+**核心思想**：每次缩小一半搜索范围，O(log n)
+
+| 题号 | 题目 | 模板类型 | 返回值 |
+|:---:|:----|:--------|:------|
+| 704 | Binary Search | 标准二分 | `return mid` / `return -1` |
+| 35 | Search Insert Position | 插入位置 | `return left` |
+| 34 | Find First and Last Position | lower_bound 两次 | `{L, R-1}` |
+| 33 | Search in Rotated Array | 先分段再判断 | `return mid` / `return -1` |
+| 153 | Find Minimum in Rotated Array | while(left<right) | `return nums[left]` |
+
+**四种二分模板一句话记**：
+```
+704 找到就返回，35 找不到返回 left
+34 两次 lower_bound，33 分段判断方向
+153 while(left<right)，一个条件找极值
+```
+
+### 2️⃣ 二分答案模式 (875)
+
+**核心思想**：二分猜答案 + 验证函数判断可行性
+
+```cpp
+int left = 1, right = max(piles);
+while (left < right) {
+    int mid = left + (right - left) / 2;
+    if (canEat(mid)) right = mid;
+    else             left = mid + 1;
+}
+return left;
+```
+
+### 3️⃣ 二维矩阵二分 (74)
+
+```cpp
+// 拉平成一维，mid/n 做行，mid%n 做列
+int m = matrix.size(), n = matrix[0].size();
+int left = 0, right = m * n - 1;
+```
+
+### 4️⃣ 回溯三模板 ⭐ 本周核心
+
+**统一框架**：
+```cpp
+void backtrack(状态参数) {
+    if (满足条件) { 记录结果; return; }
+    for (选择 in 所有可能的下一步) {
+        if (选择无效) continue;
+        做选择;
+        backtrack(更新后的状态);
+        撤销选择;
+    }
+}
+```
+
+| 题号 | 题目 | 防重复方式 | 记录时机 |
+|:---:|:----|:---------|:--------|
+| 46 | Permutations | used 数组 | path 满时 |
+| 78 | Subsets | start + i+1 | 每层都记录 |
+| 39 | Combination Sum | start + i（可重复）| sum==target |
+| 79 | Word Search | 原数组标记 | k==len-1 |
+| 22 | Generate Parentheses | left/right 计数 | left==right==0 |
+| 17 | Letter Combinations | 映射 + 递进 | k==len |
+
+**回溯题核心分类**：
+```
+是否需要回头？          排列(used) vs 子集(start)
+元素能否重复使用？       组合(start+i) vs 组合总和(start+i)
+是否有网格约束？         标准回溯 vs 网格回溯(方向数组)
+是否有计数约束？         无约束 vs 括号计数(left/right)
+```
+
+---
+
+## ⚠️ 易错点总结
+
+### 二分篇
+| 类型 | 常见错误 | 正确做法 |
+|:----|:---------|:---------|
+| right 初始值 | `right = nums.size()` | `right = nums.size() - 1` |
+| lower_bound | `if >` 没加 `=` | `if (nums[mid] >= target)` |
+| 旋转数组 | `nums[0] < nums[mid]` 漏等号 | `nums[0] <= nums[mid]` |
+| 875 答案二分 | left 从 0 开始 | left 从 1 开始 |
+| 153 找最小值 | `right = mid - 1` | `right = mid`（mid 本身可能是答案） |
+
+### 回溯篇
+| 类型 | 常见错误 | 正确做法 |
+|:----|:---------|:---------|
+| 78 子集 | `res.push(path)` 放在 for 里 | 放在 backtrack 开头 |
+| 78 子集 | `backtrack(start+1)` | `backtrack(i+1)` |
+| 39 组合 | `backtrack(start, ...)` 传 start | 传 i（可重复选） |
+| 39 组合 | sum 累加不恢复 | 传值 `sum + candidates[i]` |
+| 79 单词搜索 | `for (int i...)` 覆盖参数 | 用不同变量名 |
+| 79 单词搜索 | 缺少边界检查 | 先检查 i,j 是否越界 |
+| 17 电话号码 | `digits=""` 返回 `[""]` | 提前 `if (empty) return {}` |
+
+---
+
+## 🏆 里程碑
+
+- [x] **全勤 5 天**：连续学习，无断档 ✅
+- [x] **二分查找体系完整**：从标准二分到二分答案，7 道题全覆盖
+- [x] **回溯模板打通**：从排列到组合到搜索，6 道题掌握四种变体
+- [x] **周 Medium 题量新高**：13 道题全部 Medium 🏆
+- [x] **总题数突破 78**：从 51 → 78 道，两周增长 27 道
+
+---
+
+## 📊 六周对比
+
+| 维度 | W1 数组 | W2 链表 | W3 栈 | W4 二叉树 | W5 图 | **W6 二分+回溯** |
+|:----:|:-------:|:-------:|:-----:|:---------:|:----:|:--------------:|
+| 题目数 | 16 | 11 | 6 | 20 | 12 | **13** |
+| Easy | 10 | 7 | 2 | 10 | 1 | **0** |
+| Medium | 6 | 4 | 3 | 10 | 11 | **13** 🏆 |
+| Hard | 0 | 0 | 1 | 0 | 0 | **0** |
+| 核心技巧 | 8种 | 5种 | 4种 | 10种 | 5种 | **二分+回溯** |
+| 重点 | 哈希/窗口 | 链表 | 单调栈 | 二叉树 | 图 | **核心算法** |
+
+---
+
+## 💡 学习心得
+
+1. **二分查找是"条件判断式搜索"**：二分不仅能在有序数组里找数，还能猜答案、找极值、旋转数组——核心都是"根据条件缩小范围"
+2. **回溯 = DFS + 状态重置**：和图的 DFS 唯一区别就是回退时要撤销选择。46/78/39/79/22/17 全部共享同一个框架
+3. **回溯三要素**：防重复方式（used/start）、终止条件、剪枝条件——每道题就是这三个参数的组合变化
+4. **模板化学习效率高**：704→35→34 是"标准二分→插入点→边界"的递进，46→78→39 是"排列→子集→组合"的递进，每道题只变一个条件
+
+---
+
+## 📚 下周计划
+
+| 主题 | 重点题目 | 核心技能 |
+|:----|:---------|:---------|
+| 动态规划入门 | 基础 DP 题 | 状态定义、转移方程 |
+| 链表复习 | 206/234/19 再练 | 巩固基础 |
+
+---
+
+**第六周圆满完成！二分查找 + 回溯模板已掌握！** 🎉
+
+**总进度：78 道题，覆盖 6 大专题！**
