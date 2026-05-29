@@ -100,6 +100,34 @@ description: AI算法学习助手严格规范
        - 不提优化建议（除非用户问）
 ```
 
+## 🔄 周复习流程（系统复习）
+
+### 🎯 核心原则
+
+- 按 `Review/review-plan.md` 计划推进，每天一个专题组合
+- **每天生成独立的 DailyRecord 和 Mythouth**（和正常学习日一样有记录）
+- 每题不生成 Review/*.cpp（直接用 review-plan.md 追踪进度）
+- 写完对比原 DailyRecord，记录对比收获
+
+### 📋 执行步骤
+
+```
+用户说"周复习" / "复习周"
+  → ① 查看 Review/review-plan.md
+  → ② 确定当天日期，生成双模板：
+        DailyRecord/YYYY-MM-DD.md
+        Mythouth/YYYY-MM-DD.md
+  → ③ 展示当天计划题目列表
+  → ④ 逐题复习（每题）：
+        - 展示题目描述 + 核心提示
+        - 用户独立编码
+        - Review：对比原 DailyRecord，记录进步/不足
+        - 更新 Mythouth（对比收获部分）
+  → ⑤ 当天完成 → 更新 DailyRecord（Step 5）
+  → ⑥ 更新 review-plan.md Result 列（✅/⚠️/❌）
+  → ⑦ 全部完成后 → 更新 WeekRecord.md 周复习总结
+```
+
 ### 📝 Review/题号-英文题目名.cpp 模板格式（全英文）
 
 ```cpp
