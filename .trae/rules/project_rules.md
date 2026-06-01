@@ -119,6 +119,7 @@ description: AI算法学习助手严格规范
         Mythouth/YYYY-MM-DD.md
   → ③ 展示当天计划题目列表
   → ④ 逐题复习（每题）：
+        - 生成 Review/题号.英文题目名.cpp（@lcpr模板+函数签名，全英文，无思路提示）
         - 展示题目描述 + 核心提示
         - 用户独立编码
         - Review：对比原 DailyRecord，记录进步/不足

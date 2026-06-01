@@ -1,11 +1,11 @@
 /*
- * @lc app=leetcode.cn id=206 lang=cpp
+ * @lc app=leetcode.cn id=142 lang=cpp
  * @lcpr version=30204
  *
- * [206] Reverse Linked List
+ * [142] Linked List Cycle II
  * 
- * [Review] Original completion: 2026-04-17
- * Key technique: Three pointers
+ * [Review] Original completion: 2026-04-21
+ * Key technique: Fast-slow + two-phase
  */
 
 // @lcpr-template-start
@@ -32,23 +32,30 @@ using namespace std;
  * struct ListNode {
  *     int val;
  *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
 class Solution {
 public:
-    ListNode* reverseList(ListNode* head) {
-        ListNode *prev=nullptr ,*cur = head;
-        while (cur)
+    ListNode *detectCycle(ListNode *head) {
+        ListNode *slow = head, *fast = head;
+        while (fast&&fast->next)
         {
-            ListNode *next = cur->next;
-            cur->next = prev;
-            prev = cur;
-            cur = next;
+            slow = slow->next;
+            fast = fast->next->next;
+            if(slow==fast)
+                break;
         }
-        return prev;
+        if(!fast||!fast->next)
+            return nullptr;
+        ListNode *p1 = head, *p2 = slow;
+        while(p1!=p2)
+        {
+            p1 = p1->next;
+            p2 = p2->next;
+        }
+
+        return p1;
     }
 };
 // @lc code=end
@@ -56,15 +63,15 @@ public:
 /*
 
 // @lcpr case=start
-// [1,2,3,4,5]\n
+// [3,2,0,-4]\n1\n
 // @lcpr case=end
 
 // @lcpr case=start
-// [1,2]\n
+// [1,2]\n0\n
 // @lcpr case=end
 
 // @lcpr case=start
-// []\n
+// [1]\n-1\n
 // @lcpr case=end
 
  */

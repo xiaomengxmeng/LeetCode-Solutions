@@ -157,6 +157,7 @@ public:
         a) 确定当天日期，生成 DailyRecord/YYYY-MM-DD.md 和 Mythouth/YYYY-MM-DD.md 双模板
         b) 展示当天计划中的题目列表
         c) 逐题复习（每题走以下流程）：
+           - 生成 Review/题号.英文题目名.cpp（@lcpr模板+函数签名，全英文，无思路提示）
            - 展示题目描述 + 核心提示
            - 用户独立编码
            - Review：对比原 DailyRecord，记录进步和不足

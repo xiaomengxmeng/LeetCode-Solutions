@@ -5,7 +5,7 @@
  * [234] Palindrome Linked List
  * 
  * [Review] Original completion: 2026-04-22
- * Key technique: Find middle + Reverse second half
+ * Key technique: Find middle + reverse second half
  */
 
 // @lcpr-template-start
@@ -40,26 +40,27 @@ using namespace std;
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-        //1找中点
-        ListNode *slow = head, *fast = head;
+        ListNode *slow =head,*fast=head;
         while(fast&&fast->next){
-            slow = slow->next;
             fast = fast->next->next;
+            slow = slow->next;
         }
-        //2.反转后半链表
+
         ListNode *prev = nullptr, *cur = slow;
-        while(cur){
+        while (cur)
+        {
             ListNode *next = cur->next;
             cur->next = prev;
             prev = cur;
             cur = next;
         }
-        //3.比较是否回文链表
-        ListNode *left = head, *right = prev;
-        while(right)
-        {
-            if(left->val!=right->val)
+     ListNode* left = head;
+       
+        ListNode* right = prev;
+        while(right){
+            if(left->val != right->val){
                 return false;
+            }
             left = left->next;
             right = right->next;
         }
@@ -76,10 +77,6 @@ public:
 
 // @lcpr case=start
 // [1,2]\n
-// @lcpr case=end
-
-// @lcpr case=start
-// [1,2,3,2,1]\n
 // @lcpr case=end
 
  */

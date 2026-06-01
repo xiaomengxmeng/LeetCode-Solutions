@@ -14,14 +14,14 @@ Systematic review of 6 major topics (28 core problems + flex weak spots).
 
 | # | Problem | Core Technique | Original Date | Result |
 |:-:|:--------|:---------------|:-------------:|:------:|
-| 1 | Two Sum | Hash table | 04-13 | |
-| 3 | Longest Substring Without Repeating Characters | Sliding window | 04-16 | |
-| 56 | Merge Intervals | Sort + merge | 04-15 | |
-| 283 | Move Zeroes | Two pointers | 04-17 | |
-| 206 | Reverse Linked List | Three pointers | 04-17 | |
-| 142 | Linked List Cycle II | Fast-slow + two-phase | 04-21 | |
-| 234 | Palindrome Linked List | Find middle + reverse | 04-22 | |
-| 19 | Remove Nth Node From End | Fast-slow + dummy | 04-23 | |
+| 1 | Two Sum | Hash table | 04-13 | ✅ |
+| 3 | Longest Substring Without Repeating Characters | Sliding window | 04-16 | ✅ |
+| 56 | Merge Intervals | Sort + merge | 04-15 | ✅ |
+| 283 | Move Zeroes | Two pointers | 04-17 | ✅ |
+| 206 | Reverse Linked List | Three pointers | 04-17 | ✅ |
+| 142 | Linked List Cycle II | Fast-slow + two-phase | 04-21 | ✅ |
+| 234 | Palindrome Linked List | Find middle + reverse | 04-22 | ✅ |
+| 19 | Remove Nth Node From End | Fast-slow + dummy | 04-23 | ✅ |
 
 ---
 
