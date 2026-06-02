@@ -29,12 +29,12 @@ Systematic review of 6 major topics (28 core problems + flex weak spots).
 
 | # | Problem | Core Technique | Original Date | Result |
 |:-:|:--------|:---------------|:-------------:|:------:|
-| 739 | Daily Temperatures | Monotonic stack (index) | 04-28 | |
-| 503 | Next Greater Element II | Circular array + stack | 04-29 | |
-| 42 | Trapping Rain Water | Monotonic stack | 04-30 | |
-| 34 | Find First and Last Position | lower_bound twice | 05-25 | |
-| 33 | Search in Rotated Array | Segment-based binary | 05-26 | |
-| 875 | Koko Eating Bananas | Binary search on answer | 05-27 | |
+| 739 | Daily Temperatures | Monotonic stack (index) | 04-28 | ✅ |
+| 503 | Next Greater Element II | Circular array + stack | 04-29 | ✅ |
+| 42 | Trapping Rain Water | Monotonic stack | 04-30 | ✅ |
+| 34 | Find First and Last Position | lower_bound twice | 05-25 | ✅ |
+| 33 | Search in Rotated Array | Segment-based binary | 05-26 | ✅ |
+| 875 | Koko Eating Bananas | Binary search on answer | 05-27 | ✅ |
 
 ---
 
@@ -79,7 +79,7 @@ Systematic review of 6 major topics (28 core problems + flex weak spots).
 | Day | Topic | Count | Result |
 |:---:|:------|:----:|:------:|
 | 1 | Array + Linked List | 8 | |
-| 2 | Stack + Binary Search | 6 | |
+| 2 | Stack + Binary Search | 6 | ✅ |
 | 3 | Binary Tree | 6 | |
 | 4 | Graph | 5 | |
 | 5 | Backtracking + Weak Spot | 3+ | |
