@@ -42,12 +42,12 @@ Systematic review of 6 major topics (28 core problems + flex weak spots).
 
 | # | Problem | Core Technique | Original Date | Result |
 |:-:|:--------|:---------------|:-------------:|:------:|
-| 102 | Level Order Traversal | BFS queue | 05-07 | |
-| 98 | Validate BST | Inorder increasing | 05-10 | |
-| 105 | Construct from Preorder & Inorder | Pre root + In split | 05-13 | |
-| 236 | LCA of Binary Tree | Postorder search | 05-15 | |
-| 437 | Path Sum III | Prefix sum + hashmap + backtrack | 05-14 | |
-| 543 | Diameter of Binary Tree | Postorder + global var | 05-22 | |
+| 102 | Level Order Traversal | BFS queue | 05-07 | ✅ |
+| 98 | Validate BST | Inorder increasing | 05-10 | ✅ |
+| 105 | Construct from Preorder & Inorder | Pre root + In split | 05-13 | ✅ |
+| 236 | LCA of Binary Tree | Postorder search | 05-15 | ✅ |
+| 437 | Path Sum III | Prefix sum + hashmap + backtrack | 05-14 | ✅ |
+| 543 | Diameter of Binary Tree | Postorder + global var | 05-22 | ✅ |
 
 ---
 
@@ -80,7 +80,7 @@ Systematic review of 6 major topics (28 core problems + flex weak spots).
 |:---:|:------|:----:|:------:|
 | 1 | Array + Linked List | 8 | |
 | 2 | Stack + Binary Search | 6 | ✅ |
-| 3 | Binary Tree | 6 | |
+| 3 | Binary Tree | 6 | ✅ |
 | 4 | Graph | 5 | |
 | 5 | Backtracking + Weak Spot | 3+ | |
 | | **Total** | **28+** | |
