@@ -55,11 +55,11 @@ Systematic review of 6 major topics (28 core problems + flex weak spots).
 
 | # | Problem | Core Technique | Original Date | Result |
 |:-:|:--------|:---------------|:-------------:|:------:|
-| 200 | Number of Islands | Grid DFS (flood fill) | 05-18 | |
-| 207 | Course Schedule | Graph DFS (3-color) | 05-18 | |
-| 130 | Surrounded Regions | Border DFS + reverse | 05-20 | |
-| 994 | Rotting Oranges | Multi-source BFS (layer count) | 05-20 | |
-| 542 | 01 Matrix | Multi-source BFS (distance) | 05-21 | |
+| 200 | Number of Islands | Grid DFS (flood fill) | 05-18 | ✅ |
+| 207 | Course Schedule | Graph DFS (3-color) | 05-18 | ✅ |
+| 130 | Surrounded Regions | Border DFS + reverse | 05-20 | ✅ |
+| 994 | Rotting Oranges | Multi-source BFS (layer count) | 05-20 | ✅ |
+| 542 | 01 Matrix | Multi-source BFS (distance) | 05-21 | ✅ |
 
 ---
 
@@ -81,6 +81,6 @@ Systematic review of 6 major topics (28 core problems + flex weak spots).
 | 1 | Array + Linked List | 8 | |
 | 2 | Stack + Binary Search | 6 | ✅ |
 | 3 | Binary Tree | 6 | ✅ |
-| 4 | Graph | 5 | |
+| 4 | Graph | 5 | ✅ |
 | 5 | Backtracking + Weak Spot | 3+ | |
 | | **Total** | **28+** | |

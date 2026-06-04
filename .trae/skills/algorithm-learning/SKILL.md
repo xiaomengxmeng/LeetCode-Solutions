@@ -154,16 +154,15 @@ public:
   → ① 查看 Review/review-plan.md 了解本周计划
   → ② 按计划从 Day 1 开始，逐天推进
   → ③ 每天操作步骤：
-        a) 确定当天日期，生成 DailyRecord/YYYY-MM-DD.md 和 Mythouth/YYYY-MM-DD.md 双模板
+        a) 确定当天日期，生成 DailyRecord/YYYY-MM-DD.md（复习专用精简模板，无 Mythouth）
         b) 展示当天计划中的题目列表
         c) 逐题复习（每题走以下流程）：
            - 生成 Review/题号.英文题目名.cpp（@lcpr模板+函数签名，全英文，无思路提示）
            - 展示题目描述 + 核心提示
            - 用户独立编码
            - Review：对比原 DailyRecord，记录进步和不足
-           - 更新 Mythouth（对比收获部分）
-        d) 当天完成后更新 DailyRecord（Step 5）
-        e) 更新 review-plan.md 中的 Result 列
+           - → **立即更新 DailyRecord**（追加该题记录，不经过 Mythouth）
+        d) 更新 review-plan.md 中的 Result 列
   → ④ 全部完成后生成周复习总结 → 更新 WeekRecord.md
 ```
 
