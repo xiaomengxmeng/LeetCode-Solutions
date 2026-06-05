@@ -67,10 +67,10 @@ Systematic review of 6 major topics (28 core problems + flex weak spots).
 
 | # | Problem | Core Technique | Original Date | Result |
 |:-:|:--------|:---------------|:-------------:|:------:|
-| 46 | Permutations | Backtrack + used array | 05-28 | |
-| 39 | Combination Sum | Backtrack + sort prune | 05-28 | |
-| 79 | Word Search | Grid backtrack | 05-29 | |
-| + | Redo any ❌ / ⚠️ from Day 1-4 | | | |
+| 46 | Permutations | Backtrack + used array | 05-28 | ✅ |
+| 39 | Combination Sum | Backtrack + sort prune | 05-28 | ✅ |
+| 79 | Word Search | Grid backtrack | 05-29 | ✅ |
+| + | -  | — | — | ✅ 无薄弱项 |
 
 ---
 
@@ -78,9 +78,9 @@ Systematic review of 6 major topics (28 core problems + flex weak spots).
 
 | Day | Topic | Count | Result |
 |:---:|:------|:----:|:------:|
-| 1 | Array + Linked List | 8 | |
+| 1 | Array + Linked List | 8 | ✅ |
 | 2 | Stack + Binary Search | 6 | ✅ |
 | 3 | Binary Tree | 6 | ✅ |
 | 4 | Graph | 5 | ✅ |
-| 5 | Backtracking + Weak Spot | 3+ | |
-| | **Total** | **28+** | |
+| 5 | Backtracking + Weak Spot | 3 | ✅ |
+| | **Total** | **28** | **✅ 全部完成** |
